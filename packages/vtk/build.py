@@ -32,6 +32,7 @@ run(['cmake', '-S', source, '-B', build_dir, '-G', 'Ninja',
      '-C', source / '.gitlab/ci/configure_wheel.cmake', '-DCMAKE_BUILD_TYPE=Release',
      '-DVTK_WRAP_PYTHON=ON', '-DVTK_WHEEL_BUILD=ON', '-DVTK_BUILD_TESTING=OFF',
      '-DVTK_BUILD_EXAMPLES=OFF', '-DVTK_VERSION_SUFFIX=', f'-DPython3_EXECUTABLE={python}',
+     '-DVTK_MODULE_ENABLE_VTK_GUISupportMFC=NO',
      # The upstream CI preset assumes Kitware's sccache installation.
      '-DCMAKE_C_COMPILER_LAUNCHER=', '-DCMAKE_CXX_COMPILER_LAUNCHER=',
      '-DCMAKE_CUDA_COMPILER_LAUNCHER='], env=env)
