@@ -33,7 +33,10 @@ def main():
         raise ValueError(f'Native build required, running on {host_os}/{host_arch}')
     if f'{sys.version_info.major}.{sys.version_info.minor}' != cfg['python']:
         raise ValueError('Wrong Python ABI for target')
-    work = ROOT / '.work' / item['package'] / item['target'] / digest
+    # MSBuild's file tracker still hits MAX_PATH even on long-path-enabled
+    # Windows. Keep the native compiler tree short; full identity stays in JSON.
+    work = (Path(os.environ['RUNNER_TEMP']) / 'sw' / digest[:16]
+            if os.environ.get('RUNNER_TEMP') else ROOT / '.work' / digest[:16])
     work.mkdir(parents=True, exist_ok=True)
     source, venv, raw, out = [work / name for name in ('source', 'venv', 'raw-wheels', 'release')]
     # A reused dirty source tree must not silently change a declared build.

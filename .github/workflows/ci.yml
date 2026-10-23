@@ -73,6 +73,7 @@ jobs:
           retention-days: 14
 
   wheel:
+    name: ${{ matrix.package }} / ${{ matrix.target }}
     needs: plan
     if: needs.plan.outputs.count != '0'
     strategy:

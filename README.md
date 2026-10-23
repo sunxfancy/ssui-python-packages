@@ -104,7 +104,7 @@ the right GPU. SSUI should select a channel before generating its own lock.
 
 The release catalog/index workflow publishes static Simple API pages separately
 from wheel builds. Refreshing indexes does not rebuild wheels; old releases stay
-available. The generated `gh-pages` branch is deployment output, not build state.
+available. Pages deployment output is not build state and never gates compilation.
 
 ## Updating a package
 
