@@ -8,22 +8,24 @@ ARM64 (`0xAA64`) before a wheel can be published; renaming an x64 wheel is rejec
 This is the missing-wheel inventory from SSUI's 2026-10-23 dependency audit.
 Recipe presence is not proof of a successful port: only independently verified
 releases appear in the [live catalog](https://sunxfancy.github.io/ssui-python-packages/catalog.json).
+The [five-package build follow-up](arm64-build-results-2026-10-23.md) records
+published versions, native build fixes and independent runtime checks.
 
 | Package | Version | Validation / limitation |
 | --- | --- | --- |
-| Pynini | 2.1.6.post1 | FST operation and all upstream tests; builds OpenFST for ARM64 |
+| Pynini | 2.1.6.post1 | FST operation and upstream `pynini_test.py` suite (146 tests); builds OpenFST for ARM64 |
 | torchaudio | 2.9.1 | Native import and CPU resampling; matches official ARM64 torch 2.9.1+cpu; no FFmpeg/SoX/CUDA/ROCm |
-| opencv-python-headless | 4.11.0.86 | Native import and image conversion; no Media Foundation or bundled FFmpeg |
-| opencv-contrib-python | 4.11.0.86 | Image conversion and contrib/aruco presence; same media limitations |
+| opencv-python-headless | 4.11.0.86 | Native import, image conversion and ONNX CPU DNN execution; NEON FP32 baseline, no optional FP16 CPU dispatch, Media Foundation or bundled FFmpeg |
+| opencv-contrib-python | 4.11.0.86 | Same conversion/DNN checks plus contrib/aruco presence; same CPU/media limitations |
 | glcontext | 3.0.0 | Native backend loading; actual OpenGL rendering requires a suitable driver |
 | moderngl | 5.12.0 | Native module loading; actual OpenGL rendering requires a suitable driver |
 | pyworld | 0.3.4 | WORLD CPU pitch extraction |
 | soxr | 0.5.0.post1 | CPU audio resampling |
 | tiktoken | 0.9.0 | Offline BPE encode/decode round trip; pinned native ARM64 Rust toolchain |
 | hf-transfer | 0.1.9 | Native import; pinned native ARM64 Rust toolchain |
-| pymeshfix | 0.17.1 | Native extension loading; full API also requires VTK and pyvista |
-| pyarrow | 20.0.0 | Builds bundled Arrow C++; Arrow/Parquet round trip; S3/GCS/Flight disabled |
-| vtk | 9.4.2 | Upstream wheel build and native vtkPoints operation; no Qt or external optional modules |
+| pymeshfix | 0.17.1 | Native extension loading and mesh repair with the published VTK wheel and pyvista |
+| pyarrow | 20.0.0 | Builds bundled Arrow C++; Snappy Parquet round trip and seeded random compute kernel; S3/GCS/Flight disabled |
+| vtk | 9.4.2 | Native vtkPoints, PyVista geometry generation and PyMeshFix repair; no Qt, MFC or external optional modules |
 | antlr4-python3-runtime | 4.9.3 | Pure Python wheel and InputStream operation; supplies hydra-core's source-only dependency |
 | openai-whisper | 20240930 | Pure Python wheel and bytecode validation only; runtime still needs ARM64 numba/llvmlite |
 | transformers-stream-generator | 0.0.4 | Pure Python wheel and bytecode validation only; Transformers integration still needs testing |
