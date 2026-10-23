@@ -4,7 +4,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 from runtime import build_env, context, run
 
 ctx = context()
+env = build_env(ctx)
+# Actions has already activated MSVC. PyTorch rejects a second activation.
+env['DISTUTILS_USE_SDK'] = '1'
+env['MSSdk'] = '1'
 run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
      str(Path(ctx['source']) / 'windows-rocm/build_wheel.ps1'),
      '-VenvRoot', ctx['venv'], '-GfxArch', ctx['target']['gpu_arch'], '-Wheelhouse', ctx['raw']],
-    cwd=ctx['source'], env=build_env(ctx))
+    cwd=ctx['source'], env=env)
