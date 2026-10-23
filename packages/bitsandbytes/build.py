@@ -8,8 +8,6 @@ from runtime import build_env, context, run
 ctx = context()
 source, python = Path(ctx['source']), ctx['python']
 env = build_env(ctx)
-base = 'https://repo.radeon.com/rocm/windows/rocm-rel-' + ctx['target']['sdk']
-run([python, '-m', 'pip', 'install', '--no-deps', '--no-build-isolation', 'rocm[libraries] @ ' + base + '/rocm-' + ctx['target']['sdk'] + '.tar.gz'], env=env)
 wheelhouse = Path(ctx['raw']).parent / 'official-wheel'
 run([python, '-m', 'pip', 'download', 'bitsandbytes==' + ctx['recipe']['version'], '--no-deps', '--only-binary=:all:', '-d', wheelhouse], env=env)
 official = next(wheelhouse.glob('bitsandbytes-*.whl'))
