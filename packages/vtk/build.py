@@ -35,5 +35,7 @@ run(['cmake', '-S', source, '-B', build_dir, '-G', 'Ninja',
      # The upstream CI preset assumes Kitware's sccache installation.
      '-DCMAKE_C_COMPILER_LAUNCHER=', '-DCMAKE_CXX_COMPILER_LAUNCHER=',
      '-DCMAKE_CUDA_COMPILER_LAUNCHER='], env=env)
-run(['cmake', '--build', build_dir, '--parallel', '4'], env=env)
+workers = str(min(8, os.cpu_count() or 4))
+print('VTK native build workers:', workers, flush=True)
+run(['cmake', '--build', build_dir, '--parallel', workers], env=env)
 run([python, 'setup.py', 'bdist_wheel', '--dist-dir', ctx['raw']], cwd=build_dir, env=env)
