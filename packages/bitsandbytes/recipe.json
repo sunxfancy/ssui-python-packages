@@ -1,0 +1,5 @@
+{
+  "name": "bitsandbytes", "version": "0.49.2", "revision": 1,
+  "source": {"repository": "sunxfancy/bitsandbytes-0.49.2.rocm72", "commit": "19d205945cd1542a003a44ff9b1fcfe00e08b70e"},
+  "license": "MIT", "tests": "native-dll-load"
+}

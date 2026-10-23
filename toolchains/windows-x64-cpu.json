@@ -1,0 +1,5 @@
+{
+  "os": "windows", "arch": "x64", "backend": "cpu", "revision": 1,
+  "inputs": ["toolchains/common.lock"],
+  "requirements": "toolchains/common.lock", "bootstrap": []
+}

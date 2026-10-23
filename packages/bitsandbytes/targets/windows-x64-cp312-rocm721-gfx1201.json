@@ -1,0 +1,5 @@
+{
+  "os": "windows", "arch": "x64", "backend": "rocm", "python": "3.12",
+  "sdk": "7.2.1", "torch": "2.9.1", "gpu_arch": "gfx1201",
+  "runner": "windows-2022", "toolchain": "windows-x64-rocm721"
+}

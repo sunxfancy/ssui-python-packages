@@ -1,0 +1,4 @@
+{
+  "os": "macos", "arch": "arm64", "backend": "cpu", "python": "3.12",
+  "runner": "macos-15", "toolchain": "macos-arm64-cpu"
+}

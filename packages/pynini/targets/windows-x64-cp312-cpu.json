@@ -1,0 +1,4 @@
+{
+  "os": "windows", "arch": "x64", "backend": "cpu", "python": "3.12",
+  "runner": "windows-2022", "toolchain": "windows-x64-cpu"
+}

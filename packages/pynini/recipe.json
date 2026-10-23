@@ -1,0 +1,5 @@
+{
+  "name": "pynini", "version": "2.1.6.post1", "revision": 1,
+  "source": {"repository": "sunxfancy/pynini-2.1.6.post1", "commit": "c6c0d6ca7f77cd11efa0443d08d25aa98ab0a408"},
+  "license": "Apache-2.0", "tests": "upstream-tests"
+}

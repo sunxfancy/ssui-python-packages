@@ -1,0 +1,92 @@
+name: Build wheels
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package name (empty selects all)
+        type: string
+        default: ''
+      target:
+        description: Target ID (empty selects all targets of selected packages)
+        type: string
+        default: ''
+      force:
+        description: Rebuild even if a verified release exists (for diagnostics)
+        type: boolean
+        default: false
+      publish:
+        description: Publish successful targets independently (main only)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Test orchestration and validate recipes
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/plan.py --validate
+      - name: Select changed targets and check published fingerprints
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.before || github.event.pull_request.base.sha }}
+          HEAD: ${{ github.sha }}
+          PACKAGE: ${{ inputs.package }}
+          TARGET: ${{ inputs.target }}
+          FORCE: ${{ inputs.force }}
+        shell: bash
+        run: |
+          args=(--repo "$GITHUB_REPOSITORY" --output plan.json)
+          if [ "$EVENT" = workflow_dispatch ]; then
+            args+=(--all)
+            if [ -n "$PACKAGE" ]; then args+=(--package "$PACKAGE"); fi
+            if [ -n "$TARGET" ]; then args+=(--target "$TARGET"); fi
+            if [ "$FORCE" = true ]; then args+=(--force); fi
+          else
+            args+=(--base "$BASE" --head "$HEAD")
+          fi
+          python scripts/plan.py "${args[@]}"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: build-plan
+          path: plan.json
+          retention-days: 14
+
+  wheel:
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    uses: ./.github/workflows/build-wheel.yml
+    permissions:
+      contents: write
+    with:
+      package: ${{ matrix.package }}
+      target: ${{ matrix.target }}
+      fingerprint: ${{ matrix.fingerprint }}
+      runner: ${{ matrix.runner }}
+      python: ${{ matrix.python }}
+      architecture: ${{ matrix.architecture }}
+      publish: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.publish == true) }}

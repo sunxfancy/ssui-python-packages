@@ -1,0 +1,12 @@
+{
+  "name": "ssui-python-packages",
+  "private": true,
+  "scripts": {
+    "lock:toolchains": "python scripts/lock_toolchain.py",
+    "test": "python -m unittest discover -s tests -v",
+    "validate": "python scripts/plan.py --validate",
+    "plan": "python scripts/plan.py",
+    "build:wheel": "python scripts/build.py",
+    "publish": "python scripts/publish.py"
+  }
+}
