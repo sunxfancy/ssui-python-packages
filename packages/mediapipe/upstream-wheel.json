@@ -1,0 +1,5 @@
+{
+  "url": "https://files.pythonhosted.org/packages/27/6b/2e09a5aab429cc77492ad6cbce7a89c13dd9f81bfc077169a5cf6a9d84cc/mediapipe-1.1.1-py3-none-win_arm64.whl",
+  "sha256": "d3226908bd2ee2b4962f9cb77b9fdad5b10ff86945e7664f9da80780d67d11c2",
+  "opencv_requirement": "opencv-python-headless==4.11.0.86+ssui.cpu.r1.b05e8c6d74ea4"
+}

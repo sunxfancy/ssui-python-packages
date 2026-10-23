@@ -1,0 +1,9 @@
+{
+  "name": "mediapipe",
+  "version": "1.1.1",
+  "revision": 1,
+  "source": {"repository": "google-ai-edge/mediapipe", "commit": "50505c8312c7eacb1bd411cecdc4cc9fd08d53cb"},
+  "license": "Apache-2.0",
+  "tests": "cpu-tasks-inference",
+  "limitations": ["Official ARM64 DLLs are unchanged; only the OpenCV requirement is redirected to the verified SSUI headless build. MediaPipe 1.x uses Tasks rather than legacy solutions. CPU face/pose inference is tested; GPU is not tested."]
+}

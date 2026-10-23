@@ -1,0 +1,9 @@
+# The candidate MediaPipe wheel is installed by the build harness, not PyPI.
+absl-py~=2.3
+certifi
+sounddevice~=0.5
+flatbuffers~=25.9
+matplotlib
+opencv-python-headless==4.11.0.86+ssui.cpu.r1.b05e8c6d74ea4
+numpy==2.3.3
+--extra-index-url https://sunxfancy.github.io/ssui-python-packages/simple/windows/arm64/cpu/

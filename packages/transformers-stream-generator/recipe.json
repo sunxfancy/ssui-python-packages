@@ -1,15 +1,15 @@
 {
   "name": "transformers-stream-generator",
   "version": "0.0.4",
-  "revision": 1,
+  "revision": 2,
   "source": {
     "url": "https://files.pythonhosted.org/packages/36/26/3492ab0e45d814533b34ca605f8a20fdc032736f937679c6f212d81a76a5/transformers-stream-generator-0.0.4.tar.gz",
     "sha256": "165ec99798aca106e888c772c8b5f10ba95ab8bd103542bf304b93ed8c300b38"
   },
   "license": "MIT",
-  "tests": "python-bytecode",
+  "tests": "cpu-token-generation",
   "pure_python": true,
   "limitations": [
-    "Wheel bytecode validation only; integration depends on the chosen Transformers version."
+    "Uses public Transformers generation/streamer APIs; validated with Transformers 4.57.6 and torch 2.9.1 CPU. Streaming beam search is unsupported; normal beam generation is unchanged. GPU runtime is not tested."
   ]
 }
