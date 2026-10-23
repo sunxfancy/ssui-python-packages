@@ -5,4 +5,4 @@ from runtime import build_env, context, run
 
 ctx = context()
 run([ctx['python'], '-c', 'import pynini; assert (pynini.accep("SSUI") @ pynini.cross("SSUI", "ok")).string() == "ok"'], env=build_env(ctx))
-run([ctx['python'], str(Path(ctx['source']) / 'tests/pynini_test.py')], env=build_env(ctx))
+run([ctx['python'], str(Path(ctx['source']) / 'tests/pynini_test.py')], cwd=ctx['source'], env=build_env(ctx))

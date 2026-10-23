@@ -9,7 +9,7 @@ env = build_env(ctx)
 env['DISTUTILS_USE_SDK'] = '1'
 env['MSSdk'] = '1'
 # Git Bash prepends its Unix link.exe; setuptools must use the MSVC linker.
-compiler_bin = Path(env['VCToolsInstallDir']) / 'bin/Hostx64/x64'
+compiler_bin = Path(next(value for key, value in env.items() if key.upper() == 'VCTOOLSINSTALLDIR')) / 'bin/Hostx64/x64'
 if not (compiler_bin / 'link.exe').is_file():
     raise RuntimeError('MSVC linker not found: ' + str(compiler_bin))
 import os
