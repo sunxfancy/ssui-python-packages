@@ -94,6 +94,14 @@ class PipelineTests(unittest.TestCase):
         self.change('scripts/plan.py')
         self.assertEqual(before, fingerprint(self.root, item))
 
+    def test_publication_and_index_edits_do_not_recompile_wheels(self):
+        item = self.item()
+        before = fingerprint(self.root, item)
+        self.change('scripts/publish.py')
+        self.change('.github/workflows/index.yml', '\n')
+        self.assertEqual(before, fingerprint(self.root, item))
+        self.assertEqual(make_plan(self.root, changed=['scripts/publish.py', '.github/workflows/index.yml'])['count'], 0)
+
     def test_docs_edit_does_not_change_fingerprint(self):
         item = self.item()
         before = fingerprint(self.root, item)

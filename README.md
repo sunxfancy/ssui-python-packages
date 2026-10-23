@@ -52,7 +52,9 @@ contains the exact matrix, fingerprints and independently skipped targets.
 The planner selects candidates by changed paths. Changes to one package select
 that package; changes to one target select that target. A deleted patch still
 selects its owner. A toolchain selects only its consumers. Documentation, tests,
-planning and publication logic do not themselves force wheel compilation.
+`scripts/plan.py`, `scripts/publish.py`, and index-only logic do not themselves
+force wheel compilation. Changes to the shared build workflow conservatively
+invalidate its consumers.
 
 Each target fingerprints its pinned source/recipe, package build/smoke scripts and
 patches, that target file, referenced toolchain/lock files, and shared build/verify
@@ -105,6 +107,8 @@ the right GPU. SSUI should select a channel before generating its own lock.
 The release catalog/index workflow publishes static Simple API pages separately
 from wheel builds. Refreshing indexes does not rebuild wheels; old releases stay
 available. Pages deployment output is not build state and never gates compilation.
+Each successful publication dispatches an index refresh immediately; it does not
+wait for unrelated matrix targets. A workflow-completion refresh is a fallback.
 
 ## Updating a package
 

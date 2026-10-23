@@ -63,6 +63,7 @@ def main():
     if existing:
         if release_is_valid(existing, expected) and existing['manifest']['files'] == manifest['files']:
             print('Identical immutable release already exists:', tag)
+            gh('api', '--method', 'POST', f'repos/{args.repo}/dispatches', '-f', 'event_type=wheel-published')
             return
         raise ValueError(f'Release {tag} already exists with different/incomplete assets; never overwrite it. Bump recipe revision to publish a new build.')
     notes = directory.parent / 'release-notes.txt'
@@ -77,6 +78,9 @@ def main():
     for _ in range(10):
         if release_is_valid(find_release(args.repo, tag), expected):
             print('Published and verified:', tag)
+            # repository_dispatch is intentionally allowed to trigger another
+            # workflow with GITHUB_TOKEN. It needs only contents:write.
+            gh('api', '--method', 'POST', f'repos/{args.repo}/dispatches', '-f', 'event_type=wheel-published')
             return
         time.sleep(2)
     raise RuntimeError('Release published but asset digest verification is not yet available; inspect release before retrying')

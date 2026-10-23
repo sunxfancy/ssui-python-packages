@@ -1,6 +1,8 @@
 name: Refresh package index
 
 on:
+  repository_dispatch:
+    types: [wheel-published]
   workflow_run:
     workflows: [Build wheels]
     types: [completed]
