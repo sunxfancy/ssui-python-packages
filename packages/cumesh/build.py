@@ -1,9 +1,22 @@
 from pathlib import Path
+import json
+import subprocess
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
 from runtime import build_env, context, run
 
 ctx = context()
+# This fork vendors cubvh but omits its Eigen submodule. Supply pinned headers.
+eigen_pin = json.loads(Path(__file__).with_name('eigen.json').read_text())
+eigen = Path(ctx['source']) / 'third_party/cubvh/third_party/eigen'
+if not (eigen / 'Eigen/Core').is_file():
+    eigen.parent.mkdir(parents=True, exist_ok=True)
+    run(['git', 'init', eigen])
+    run(['git', 'remote', 'add', 'origin', eigen_pin['repository']], cwd=eigen)
+    run(['git', 'fetch', '--depth=1', 'origin', eigen_pin['commit']], cwd=eigen)
+    run(['git', 'checkout', '--detach', 'FETCH_HEAD'], cwd=eigen)
+    if subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=eigen, text=True).strip() != eigen_pin['commit']:
+        raise RuntimeError('Eigen source SHA mismatch')
 env = build_env(ctx)
 # Actions has already activated MSVC. PyTorch rejects a second activation.
 env['DISTUTILS_USE_SDK'] = '1'

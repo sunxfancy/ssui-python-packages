@@ -1,0 +1,6 @@
+{
+  "repository": "https://gitlab.com/libeigen/eigen.git",
+  "commit": "3147391d946bb4b6c68edd901f2add6ac1f31f8c",
+  "version": "3.4.0",
+  "license": "MPL-2.0"
+}
