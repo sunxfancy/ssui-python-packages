@@ -1,0 +1,14 @@
+{
+  "name": "llvmlite",
+  "version": "0.45.1",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/99/8d/5baf1cef7f9c084fb35a8afbde88074f0d6a727bc63ef764fe0e7543ba40/llvmlite-0.45.1.tar.gz",
+    "sha256": "09430bb9d0bb58fc45a45a57c7eae912850bedc095cd0810a57de109c69e1c32"
+  },
+  "license": "BSD-2-Clause",
+  "tests": "native-jit-operation",
+  "limitations": [
+    "Windows ARM64 LLVM JIT toolchain/build and execution tests are not configured; upstream wheels do not cover this target."
+  ]
+}

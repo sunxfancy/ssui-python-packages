@@ -1,0 +1,10 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cpu",
+  "python": "3.12",
+  "runner": "windows-11-arm",
+  "toolchain": "windows-arm64-cpu",
+  "enabled": false,
+  "reason": "Windows ARM64 LLVM JIT toolchain/build and execution tests are not configured; upstream wheels do not cover this target."
+}

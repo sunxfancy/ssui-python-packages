@@ -1,0 +1,14 @@
+{
+  "name": "numba",
+  "version": "0.62.1",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/a3/20/33dbdbfe60e5fd8e3dbfde299d106279a33d9f8308346022316781368591/numba-0.62.1.tar.gz",
+    "sha256": "7b774242aa890e34c21200a1fc62e5b5757d5286267e71103257f4e2af0d5161"
+  },
+  "license": "BSD-2-Clause",
+  "tests": "native-jit-operation",
+  "limitations": [
+    "Windows ARM64 runtime requires a validated llvmlite/LLVM JIT port; do not publish a wheel that cannot import."
+  ]
+}

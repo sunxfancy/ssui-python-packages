@@ -28,6 +28,8 @@ releases appear in the [live catalog](https://sunxfancy.github.io/ssui-python-pa
 | openai-whisper | 20240930 | Pure Python wheel and bytecode validation only; runtime still needs ARM64 numba/llvmlite |
 | transformers-stream-generator | 0.0.4 | Pure Python wheel and bytecode validation only; Transformers integration still needs testing |
 | imageio-ffmpeg | 0.6.0 | **Blocked/disabled**: native ARM64 FFmpeg executable/build pipeline missing; publishing the pure wrapper would not resolve this |
+| numba | 0.62.1 | **Blocked/disabled**: requires a validated Windows ARM64 llvmlite/LLVM JIT port |
+| llvmlite | 0.45.1 | **Blocked/disabled**: native LLVM JIT build and execution tests are not configured for this target |
 
 OpenCV flavors both install `cv2`; select one flavor in an environment. Keeping
 separate recipes preserves the dependency names required by different consumers;
@@ -40,7 +42,7 @@ controlnet-aux and mediapipe do not need redundant rebuilds merely because a
 native dependency is missing. Their complete workflows still need integration
 tests once those dependencies are available.
 
-Numba/llvmlite are additional runtime blockers for Whisper and potentially librosa;
+Numba/llvmlite are additional runtime blockers for both Whisper and librosa;
 this migration does not claim to port the LLVM JIT to Windows ARM64. FFmpeg remains
 an explicit blocked target; `--force` does not turn a blocked recipe into a valid
 build. Source archives are official PyPI sdists pinned by SHA256; Git sources stay
