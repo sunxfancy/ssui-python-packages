@@ -40,3 +40,21 @@ workers = str(min(8, os.cpu_count() or 4))
 print('VTK native build workers:', workers, flush=True)
 run(['cmake', '--build', build_dir, '--parallel', workers], env=env)
 run([python, 'setup.py', 'bdist_wheel', '--dist-dir', ctx['raw']], cwd=build_dir, env=env)
+# Match upstream's Windows wheel job: setup.py does not bundle bin/*.dll.
+# Keep VTK DLL names stable for its runtime lookups, but let delvewheel handle
+# other redistributable dependencies and install the DLL search-path bootstrap.
+fixed = source.parent / 'fixed-wheels'
+fixed.mkdir()
+wheel = next(Path(ctx['raw']).glob('*.whl'))
+no_mangle = ';'.join(sorted(path.name for path in (build_dir / 'bin').glob('*.dll')))
+# Pinned delvewheel handles api-* contracts but misses ext-ms-win-* contracts.
+# Both are Windows loader API sets, not DLLs to copy out of the operating system:
+# https://learn.microsoft.com/windows/win32/apiindex/windows-apisets
+repair = ('import re; from delvewheel import _dll_list; '
+          '_dll_list.ignore_regexes.add(re.compile(r"ext-ms-win-.*\\.dll")); '
+          'from delvewheel.__main__ import main; main()')
+run([python, '-c', repair, 'repair', '--add-path', build_dir / 'bin',
+     '--no-mangle', no_mangle, '-w', fixed, wheel], env=env)
+wheel.unlink()
+for result in fixed.glob('*.whl'):
+    result.replace(Path(ctx['raw']) / result.name)
