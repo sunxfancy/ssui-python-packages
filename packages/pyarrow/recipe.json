@@ -4,7 +4,7 @@
   "revision": 1,
   "source": {
     "repository": "apache/arrow",
-    "commit": "f75dcf08ccf0f6b15ee4bb04d8ff7756c0409957"
+    "commit": "3ad0370a04ccdae638755b94c3c31c8760a11193"
   },
   "license": "Apache-2.0",
   "tests": "native-operation"
