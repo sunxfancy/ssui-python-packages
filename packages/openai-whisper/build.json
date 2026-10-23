@@ -1,4 +1,4 @@
 {
   "kind": "wheel",
-  "smoke": "import compileall, importlib.metadata as m; p=m.distribution('openai-whisper').locate_file('whisper'); assert compileall.compile_dir(str(p),quiet=1)"
+  "smoke": "import compileall, importlib.metadata as m; p=m.distribution('openai-whisper').locate_file('whisper'); assert p.is_dir() and any(p.rglob('*.py')); assert compileall.compile_dir(str(p),quiet=1)"
 }

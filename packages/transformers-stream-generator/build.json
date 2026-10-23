@@ -1,4 +1,4 @@
 {
   "kind": "wheel",
-  "smoke": "import compileall, importlib.metadata as m; p=m.distribution('transformers-stream-generator').locate_file('transformers_stream_generator'); assert compileall.compile_dir(str(p),quiet=1)"
+  "smoke": "import compileall, importlib.metadata as m; p=m.distribution('transformers-stream-generator').locate_file('transformers_stream_generator'); assert p.is_dir() and any(p.rglob('*.py')); assert compileall.compile_dir(str(p),quiet=1)"
 }

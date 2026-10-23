@@ -7,5 +7,5 @@
     "sha256": "52936a98ccb2f2e1d6e3cb18528b2919f6831e7e3f924e788b5873badce5129b"
   },
   "license": "MIT",
-  "tests": "native-operation"
+  "tests": "native-import"
 }

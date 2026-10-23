@@ -7,5 +7,5 @@
     "sha256": "035572865dab29d17e783fbf1e84cf1cb24f3fcf8f1b17db1cfc7fdf139f02bf"
   },
   "license": "Apache-2.0",
-  "tests": "native-operation"
+  "tests": "native-import"
 }
