@@ -25,7 +25,7 @@ if text.count(flag) != 1:
 setup.write_text(text.replace(flag, '"-DCMAKE_SYSTEM_PROCESSOR=ARM64",'), newline='\n')
 bootstrap = """
 import os, runpy, sys
-from skbuild import platform_specifics
+from skbuild import cmaker, platform_specifics
 from skbuild.platform_specifics.abstract import CMakePlatform, CMakeGenerator
 class ActivatedPlatform(CMakePlatform):
     def __init__(self):
@@ -35,6 +35,7 @@ class ActivatedPlatform(CMakePlatform):
     def generator_installation_help(self):
         return 'The pre-activated ARM64 MSVC compiler and Ninja are required.'
 platform_specifics.get_platform = ActivatedPlatform
+cmaker.get_platform = ActivatedPlatform
 sys.argv = ['setup.py', 'bdist_wheel', '--dist-dir', sys.argv[1]]
 runpy.run_path('setup.py', run_name='__main__')
 """
