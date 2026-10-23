@@ -1,0 +1,4 @@
+{
+  "kind": "vtk",
+  "smoke": "from vtkmodules.vtkCommonCore import vtkPoints; p=vtkPoints(); p.InsertNextPoint(1,2,3); assert p.GetNumberOfPoints()==1"
+}

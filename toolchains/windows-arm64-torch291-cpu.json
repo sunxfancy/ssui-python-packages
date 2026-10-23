@@ -1,0 +1,14 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cpu",
+  "revision": 1,
+  "inputs": [
+    "toolchains/windows-arm64-cpu.lock",
+    "scripts/arm_build.py"
+  ],
+  "requirements": "toolchains/windows-arm64-cpu.lock",
+  "bootstrap": [
+    "https://download.pytorch.org/whl/cpu/torch-2.9.1%2Bcpu-cp312-cp312-win_arm64.whl"
+  ]
+}

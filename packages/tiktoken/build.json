@@ -1,0 +1,5 @@
+{
+  "kind": "wheel",
+  "smoke": "import tiktoken; e=tiktoken.Encoding(name='ssui-smoke',pat_str=r'.',mergeable_ranks={bytes([i]):i for i in range(256)},special_tokens={}); assert e.decode(e.encode('SSUI ARM64'))=='SSUI ARM64'",
+  "rust": true
+}

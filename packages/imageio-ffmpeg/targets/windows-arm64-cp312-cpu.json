@@ -1,0 +1,10 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cpu",
+  "python": "3.12",
+  "runner": "windows-11-arm",
+  "toolchain": "windows-arm64-cpu",
+  "enabled": false,
+  "reason": "Native Windows ARM64 FFmpeg executable and its build/license pipeline are not yet available. A pure wrapper wheel would not fix the audit blocker."
+}

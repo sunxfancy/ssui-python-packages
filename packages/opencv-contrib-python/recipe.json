@@ -1,0 +1,14 @@
+{
+  "name": "opencv-contrib-python",
+  "version": "4.11.0.86",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/ef/51/3ceb85ecff5f26994b7aae2922b1aa38148dbfe88cab13d63bc6facbac88/opencv-contrib-python-4.11.0.86.tar.gz",
+    "sha256": "4ff773dab44911da366b906621c9592d4eb96f6ad3777098933a23f064aab38e"
+  },
+  "license": "Apache-2.0",
+  "tests": "native-operation",
+  "limitations": [
+    "Windows Media Foundation and bundled FFmpeg disabled for this ARM64 build."
+  ]
+}

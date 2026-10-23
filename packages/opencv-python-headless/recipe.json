@@ -1,0 +1,14 @@
+{
+  "name": "opencv-python-headless",
+  "version": "4.11.0.86",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/36/2f/5b2b3ba52c864848885ba988f24b7f105052f68da9ab0e693cc7c25b0b30/opencv-python-headless-4.11.0.86.tar.gz",
+    "sha256": "996eb282ca4b43ec6a3972414de0e2331f5d9cda2b41091a49739c19fb843798"
+  },
+  "license": "Apache-2.0",
+  "tests": "native-operation",
+  "limitations": [
+    "Windows Media Foundation and bundled FFmpeg disabled for this ARM64 build."
+  ]
+}

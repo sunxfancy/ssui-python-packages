@@ -9,9 +9,9 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SLUG = re.compile(r'^[a-z0-9][a-z0-9._-]*$')
 SHA = re.compile(r'^[a-f0-9]{40}$')
-RUNNERS = {'windows-2022', 'macos-15'}
+RUNNERS = {'windows-2022', 'windows-11-arm', 'macos-15'}
 BUILD_INPUTS = ['scripts/core.py', 'scripts/build.py', 'scripts/runtime.py',
-                'scripts/verify.py', '.github/workflows/build-wheel.yml']
+                'scripts/verify.py', 'scripts/source.py', '.github/workflows/build-wheel.yml']
 
 
 def read_json(path):
@@ -46,10 +46,15 @@ def load_targets(root=ROOT):
         package = recipe_path.parent.name
         if not SLUG.fullmatch(package) or recipe['name'] != package:
             raise ValueError(f'Invalid package: {package}')
-        if not SHA.fullmatch(recipe['source']['commit']):
-            raise ValueError(f'{package}: source must use a full commit SHA')
-        if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', recipe['source']['repository']):
-            raise ValueError('Invalid source repository')
+        source = recipe['source']
+        if 'url' in source:
+            if not source['url'].startswith('https://files.pythonhosted.org/packages/') or not re.fullmatch(r'[a-f0-9]{64}', source.get('sha256', '')):
+                raise ValueError('Source archive must use a PyPI URL and SHA256')
+        else:
+            if not SHA.fullmatch(source.get('commit', '')):
+                raise ValueError(f'{package}: source must use a full commit SHA')
+            if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', source['repository']):
+                raise ValueError('Invalid source repository')
         if not isinstance(recipe['revision'], int) or recipe['revision'] < 1:
             raise ValueError('revision must be a positive integer')
         if not re.fullmatch(r'[0-9][a-zA-Z0-9.]*', recipe['version']):
@@ -59,10 +64,16 @@ def load_targets(root=ROOT):
         for target_path in sorted((recipe_path.parent / 'targets').glob('*.json')):
             target = read_json(target_path)
             target_id = target_path.stem
+            if 'enabled' in target and not isinstance(target['enabled'], bool):
+                raise ValueError('enabled must be boolean')
+            if target.get('enabled') is False and not target.get('reason'):
+                raise ValueError('Disabled target requires a concrete blocker')
             if not SLUG.fullmatch(target_id) or target['runner'] not in RUNNERS:
                 raise ValueError(f'Invalid target: {target_id}')
             if target['os'] not in ('windows', 'macos', 'linux') or target['arch'] not in ('x64', 'arm64'):
                 raise ValueError('Invalid OS or architecture')
+            if target['runner'] == 'windows-11-arm' and (target['os'], target['arch']) != ('windows', 'arm64'):
+                raise ValueError('ARM runner requires Windows ARM64 target')
             if target['backend'] not in ('cpu', 'cuda', 'rocm', 'mps', 'qnn'):
                 raise ValueError('Invalid compute backend')
             if not re.fullmatch(r'3\.\d+', target['python']):

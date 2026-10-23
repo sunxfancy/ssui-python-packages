@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "import imageio_ffmpeg; import subprocess; p=imageio_ffmpeg.get_ffmpeg_exe(); subprocess.run([p,'-version'],check=True)"
+}

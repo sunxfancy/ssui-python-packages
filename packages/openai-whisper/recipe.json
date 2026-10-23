@@ -1,0 +1,15 @@
+{
+  "name": "openai-whisper",
+  "version": "20240930",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/f5/77/952ca71515f81919bd8a6a4a3f89a27b09e73880cebf90957eda8f2f8545/openai-whisper-20240930.tar.gz",
+    "sha256": "b7178e9c1615576807a300024f4daa6353f7e1a815dac5e38c33f1ef055dd2d2"
+  },
+  "license": "MIT",
+  "tests": "python-bytecode",
+  "pure_python": true,
+  "limitations": [
+    "Wheel bytecode validation only; runtime blocked by missing Windows ARM64 numba/llvmlite."
+  ]
+}

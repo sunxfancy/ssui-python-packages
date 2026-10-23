@@ -1,0 +1,11 @@
+{
+  "name": "hf-transfer",
+  "version": "0.1.9",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/1a/eb/8fc64f40388c29ce8ce3b2b180a089d4d6b25b1d0d232d016704cb852104/hf_transfer-0.1.9.tar.gz",
+    "sha256": "035572865dab29d17e783fbf1e84cf1cb24f3fcf8f1b17db1cfc7fdf139f02bf"
+  },
+  "license": "Apache-2.0",
+  "tests": "native-operation"
+}

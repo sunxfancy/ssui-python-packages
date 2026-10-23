@@ -1,0 +1,9 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cpu",
+  "python": "3.12",
+  "runner": "windows-11-arm",
+  "toolchain": "windows-arm64-torch291-cpu",
+  "torch": "2.9.1"
+}

@@ -6,6 +6,7 @@ import hashlib
 import io
 from pathlib import Path
 import re
+import struct
 import zipfile
 
 
@@ -57,12 +58,17 @@ def verify_wheel(wheel, item, version):
     parts = Path(wheel).name[:-4].split('-')
     python_tag, abi_tag, platform_tag = parts[-3:]
     cfg = item['config']
+    pure = item['recipe'].get('pure_python', False)
     expected = {'windows': {'x64': 'win_amd64', 'arm64': 'win_arm64'}}
-    if cfg['os'] == 'windows' and platform_tag != expected['windows'][cfg['arch']]:
+    if pure and not ('py3' in python_tag.split('.') and (abi_tag, platform_tag) == ('none', 'any')):
+        raise ValueError('Pure Python recipe requires py3-none-any wheel')
+    if not pure and cfg['os'] == 'windows' and platform_tag != expected['windows'][cfg['arch']]:
         raise ValueError(f'Wrong platform tag: {platform_tag}')
     if cfg['os'] == 'macos' and not (platform_tag.startswith('macosx_') and platform_tag.endswith('_' + cfg['arch'])):
         raise ValueError(f'Wrong macOS platform tag: {platform_tag}')
-    if python_tag not in ('py3', 'cp' + cfg['python'].replace('.', '')) or abi_tag not in ('none', 'abi3', 'cp' + cfg['python'].replace('.', '')):
+    current_cp = 'cp' + cfg['python'].replace('.', '')
+    compatible_abi3 = abi_tag == 'abi3' and re.fullmatch(r'cp3\d+', python_tag) and 32 <= int(python_tag[2:]) <= int(current_cp[2:])
+    if not compatible_abi3 and (not ('py3' in python_tag.split('.') or python_tag == current_cp) or abi_tag not in ('none', current_cp)):
         raise ValueError('Wrong Python or ABI tag')
     with zipfile.ZipFile(wheel) as archive:
         metadata = [name for name in archive.namelist() if name.endswith('.dist-info/METADATA')]
@@ -73,8 +79,19 @@ def verify_wheel(wheel, item, version):
             raise ValueError('Wheel identity differs from release recipe')
         if parts[1] != version:
             raise ValueError('Wheel filename and METADATA versions differ')
-        if not any(name.endswith(('.pyd', '.dll', '.so', '.dylib')) for name in archive.namelist()):
+        native = [name for name in archive.namelist() if name.endswith(('.pyd', '.dll', '.so', '.dylib'))]
+        if pure and native:
+            raise ValueError('Pure Python wheel unexpectedly contains native libraries')
+        if not pure and not native:
             raise ValueError('Native wheel contains no native libraries')
+        if cfg['os'] == 'windows' and cfg['arch'] == 'arm64':
+            for name in native:
+                payload = archive.read(name)
+                if payload[:2] != b'MZ' or len(payload) < 64:
+                    raise ValueError('Invalid Windows native binary: ' + name)
+                offset = struct.unpack_from('<I', payload, 60)[0]
+                if offset + 6 > len(payload) or payload[offset:offset+4] != b'PE\0\0' or struct.unpack_from('<H', payload, offset+4)[0] != 0xaa64:
+                    raise ValueError('Native binary is not Windows ARM64: ' + name)
         record = next(name for name in archive.namelist() if name.endswith('.dist-info/RECORD'))
         rows = list(csv.reader(io.StringIO(archive.read(record).decode())))
         if {row[0] for row in rows} != set(archive.namelist()):

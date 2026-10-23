@@ -38,8 +38,8 @@ class PipelineTests(unittest.TestCase):
         with path.open('a', encoding='utf-8') as stream:
             stream.write(text)
 
-    def test_all_four_initial_targets(self):
-        self.assertEqual(make_plan(self.root)['count'], 4)
+    def test_all_enabled_targets_selected(self):
+        self.assertEqual(make_plan(self.root)['count'], sum(i['config'].get('enabled', True) for i in load_targets(self.root)))
 
     def test_package_change_selects_only_its_targets(self):
         plan = make_plan(self.root, changed=['packages/cumesh/build.py'])
@@ -54,7 +54,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual({i['package'] for i in plan['matrix']['include']}, {'cumesh', 'bitsandbytes'})
 
     def test_shared_build_input_affects_every_target(self):
-        self.assertEqual(make_plan(self.root, changed=['scripts/build.py'])['count'], 4)
+        self.assertEqual(make_plan(self.root, changed=['scripts/build.py'])['count'], make_plan(self.root)['count'])
 
     def test_docs_and_planning_code_do_not_build(self):
         self.assertEqual(make_plan(self.root, changed=['README.md', 'scripts/plan.py', 'tests/test_pipeline.py', 'packages/pynini/README.md'])['count'], 0)

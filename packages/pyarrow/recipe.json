@@ -1,0 +1,11 @@
+{
+  "name": "pyarrow",
+  "version": "20.0.0",
+  "revision": 1,
+  "source": {
+    "repository": "apache/arrow",
+    "commit": "f75dcf08ccf0f6b15ee4bb04d8ff7756c0409957"
+  },
+  "license": "Apache-2.0",
+  "tests": "native-operation"
+}

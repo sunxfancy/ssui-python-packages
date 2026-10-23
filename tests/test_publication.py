@@ -24,7 +24,7 @@ class PublicationTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
 
     def bundle(self):
-        item = next(i for i in load_targets() if i['package'] == 'pynini' and i['config']['os'] == 'windows')
+        item = next(i for i in load_targets() if i['package'] == 'pynini' and i['target'] == 'windows-x64-cp312-cpu')
         digest = fingerprint(ROOT, item)
         original = self.directory / 'pynini-2.1.6.post1-cp312-cp312-win_amd64.whl'
         with zipfile.ZipFile(original, 'w') as wheel:

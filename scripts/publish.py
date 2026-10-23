@@ -68,8 +68,9 @@ def main():
         raise ValueError(f'Release {tag} already exists with different/incomplete assets; never overwrite it. Bump recipe revision to publish a new build.')
     notes = directory.parent / 'release-notes.txt'
     notes.write_text(f"Package: {item['package']}\nTarget: {item['target']}\nVersion: {expected['version']}\n"
-                     f"Fingerprint: {args.fingerprint}\nSource: {item['recipe']['source']['repository']}@{item['recipe']['source']['commit']}\n"
+                     f"Fingerprint: {args.fingerprint}\nSource: {json.dumps(item['recipe']['source'], sort_keys=True)}\n"
                      f"Validation: {manifest['checks']['smoke_kind']}\nGPU runtime test: NOT RUN (hosted CPU runner)\n"
+                     f"Limitations: {json.dumps(manifest.get('limitations', []))}\n"
                      'See release.json for checksums and exact build provenance.\n', encoding='utf-8')
     gh('release', 'create', tag, '--repo', args.repo, '--draft', '--target', os.environ.get('GITHUB_SHA', 'main'),
        '--title', f"{item['package']} {expected['version']} ({item['target']})", '--notes-file', str(notes))

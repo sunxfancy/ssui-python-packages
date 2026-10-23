@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "import glcontext; assert callable(glcontext.default_backend())"
+}

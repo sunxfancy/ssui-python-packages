@@ -11,6 +11,7 @@ import sys
 from core import ROOT, channel, fingerprint, load_targets, sha256, wheel_version
 from runtime import build_env, run
 from verify import relabel, verify_wheel
+from source import checkout
 
 
 def main():
@@ -23,6 +24,8 @@ def main():
     if len(selected) != 1:
         raise ValueError('Unknown package/target')
     item = selected[0]
+    if item['config'].get('enabled') is False:
+        raise ValueError('Target blocked: ' + item['config']['reason'])
     digest = fingerprint(ROOT, item)
     if digest != args.fingerprint:
         raise ValueError('Build inputs differ from the selected plan')
@@ -43,14 +46,7 @@ def main():
     if source.exists() or venv.exists() or out.exists():
         raise ValueError(f'Build directory already used: {work}; choose a clean workspace')
     raw.mkdir()
-    run(['git', 'init', str(source)])
-    run(['git', 'remote', 'add', 'origin', 'https://github.com/' + item['recipe']['source']['repository'] + '.git'], cwd=source)
-    run(['git', 'fetch', '--depth=1', 'origin', item['recipe']['source']['commit']], cwd=source)
-    run(['git', 'checkout', '--detach', 'FETCH_HEAD'], cwd=source)
-    actual = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=source, text=True).strip()
-    if actual != item['recipe']['source']['commit']:
-        raise ValueError('Source checkout SHA mismatch')
-    run(['git', 'submodule', 'update', '--init', '--recursive', '--depth=1'], cwd=source)
+    checkout(item['recipe']['source'], source)
     patch_dir = ROOT / 'packages' / item['package'] / 'patches'
     for patch in sorted(patch_dir.glob('*.patch')):
         run(['git', 'apply', '--check', patch], cwd=source)
@@ -81,6 +77,7 @@ def main():
     manifest = {'schema': 1, 'package': item['package'], 'target': item['target'],
                 'fingerprint': digest, 'version': ctx['version'], 'channel': channel(item),
                 'source': item['recipe']['source'], 'config': cfg,
+                'limitations': item['recipe'].get('limitations', []),
                 'checks': {'wheel_metadata': 'passed', 'smoke': 'passed',
                            'smoke_kind': item['recipe']['tests'], 'gpu_runtime': False},
                 'provenance': {'repository_commit': os.environ.get('GITHUB_SHA'),

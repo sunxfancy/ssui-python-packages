@@ -1,0 +1,14 @@
+{
+  "name": "pymeshfix",
+  "version": "0.17.1",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/1a/c5/25d819749a15693496bf8a19afacb5c56e2bd85082ac6197821f9e08cc10/pymeshfix-0.17.1.tar.gz",
+    "sha256": "96c22ff578ce56f16a4b9bb9cfe6deb196d94044a17fe4815b74e962f64f236a"
+  },
+  "license": "GPL-3.0-or-later",
+  "tests": "native-operation",
+  "limitations": [
+    "Native extension load only; full MeshFix API also needs a compatible VTK/pyvista installation."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "vtk",
+  "version": "9.4.2",
+  "revision": 1,
+  "source": {
+    "repository": "Kitware/VTK",
+    "commit": "13acb1a5dd0ad7f7635f2511f44e599733643d06"
+  },
+  "license": "BSD-3-Clause",
+  "tests": "native-operation"
+}

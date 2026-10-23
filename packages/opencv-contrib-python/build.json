@@ -1,0 +1,9 @@
+{
+  "kind": "wheel",
+  "smoke": "import cv2, numpy as np; assert hasattr(cv2,'aruco'); assert cv2.cvtColor(np.zeros((8,8,3),np.uint8),cv2.COLOR_BGR2GRAY).shape==(8,8)",
+  "env": {
+    "ENABLE_HEADLESS": "0",
+    "ENABLE_CONTRIB": "1",
+    "CMAKE_ARGS": "-DWITH_MSMF=OFF -DWITH_FFMPEG=OFF -DWITH_IPP=OFF -DWITH_OPENCL=OFF -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DPYTHON3_LIMITED_API=OFF"
+  }
+}

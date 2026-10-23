@@ -12,7 +12,7 @@ if ctx['target']['os'] == 'macos':
     env['ARCHFLAGS'] = '-arch arm64'
     env['_PYTHON_HOST_PLATFORM'] = 'macosx-11.0-arm64'
 args = ['cmake', '-S', source / 'third_party/openfst-1.8.3', '-B', build, f'-DCMAKE_INSTALL_PREFIX={prefix}']
-args += ['-A', 'x64'] if ctx['target']['os'] == 'windows' else ['-G', 'Ninja']
+args += ['-A', 'ARM64' if ctx['target']['arch'] == 'arm64' else 'x64'] if ctx['target']['os'] == 'windows' else ['-G', 'Ninja']
 if ctx['target']['os'] == 'macos':
     args += ['-DCMAKE_OSX_ARCHITECTURES=arm64']
 run(args, env=env)

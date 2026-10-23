@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "import numpy as np, pyworld; f,t=pyworld.dio(np.zeros(16000,dtype=np.float64),16000); assert len(f)==len(t) and len(f)>0"
+}

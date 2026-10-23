@@ -35,7 +35,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
         if: runner.os == 'Windows'
         with:
-          arch: x64
+          arch: ${{ inputs.architecture }}
       - name: Build and verify pinned source
         id: build
         env:

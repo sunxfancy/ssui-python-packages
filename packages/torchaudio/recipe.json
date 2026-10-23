@@ -1,0 +1,11 @@
+{
+  "name": "torchaudio",
+  "version": "2.9.1",
+  "revision": 1,
+  "source": {
+    "repository": "pytorch/audio",
+    "commit": "a224ab24a7f4797f6707051257265e223e12576f"
+  },
+  "license": "BSD-2-Clause",
+  "tests": "native-operation"
+}

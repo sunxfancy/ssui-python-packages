@@ -28,11 +28,14 @@ def make_plan(root=ROOT, changed=None, package=None, target=None, force=False, l
         raise ValueError(f'Unknown package: {package}')
     if target and not any(item['target'] == target and (not package or item['package'] == package) for item in items):
         raise ValueError(f'Unknown target: {target}')
-    tasks, skipped = [], []
+    tasks, skipped, blocked = [], [], []
     for item in items:
         if package and item['package'] != package:
             continue
         if target and item['target'] != target:
+            continue
+        if item['config'].get('enabled') is False:
+            blocked.append({'package': item['package'], 'target': item['target'], 'reason': item['config']['reason']})
             continue
         inputs = input_files(root, item)
         # Path filtering is only an optimization. The fingerprint is authoritative.
@@ -52,7 +55,7 @@ def make_plan(root=ROOT, changed=None, package=None, target=None, force=False, l
             skipped.append({**entry, 'reason': 'Published fingerprint and release asset digests match'})
         else:
             tasks.append(entry)
-    return {'schema': 1, 'matrix': {'include': tasks}, 'count': len(tasks), 'skipped': skipped}
+    return {'schema': 1, 'matrix': {'include': tasks}, 'count': len(tasks), 'skipped': skipped, 'blocked': blocked}
 
 
 def main():
@@ -87,6 +90,8 @@ def main():
     print(f"Build {result['count']} target(s); reuse {len(result['skipped'])} published target(s)")
     for entry in result['matrix']['include']:
         print(f"  {entry['package']} / {entry['target']} / {entry['fingerprint'][:12]}")
+    for entry in result['blocked']:
+        print(f"Blocked: {entry['package']} / {entry['target']}: {entry['reason']}")
 
 
 if __name__ == '__main__':

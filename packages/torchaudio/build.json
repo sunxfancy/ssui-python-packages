@@ -1,0 +1,16 @@
+{
+  "kind": "wheel",
+  "smoke": "import torch, torchaudio; from torchaudio.lib import _torchaudio; x=torch.zeros(1,1600); assert torchaudio.functional.resample(x,16000,8000).shape[-1]==800",
+  "env": {
+    "BUILD_VERSION": "2.9.1",
+    "PYTORCH_VERSION": "2.9.1",
+    "USE_CUDA": "0",
+    "USE_ROCM": "0",
+    "USE_FFMPEG": "0",
+    "BUILD_SOX": "0",
+    "BUILD_KALDI": "0",
+    "BUILD_RNNT": "0",
+    "BUILD_CTC_DECODER": "0",
+    "USE_OPENMP": "0"
+  }
+}

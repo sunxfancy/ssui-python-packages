@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "import importlib.metadata as m, importlib.util as u; p=next(x for x in m.files('pymeshfix') if str(x).endswith('.pyd')); s=u.spec_from_file_location('_meshfix',p.locate()); x=u.module_from_spec(s); s.loader.exec_module(x); assert callable(x.PyTMesh)"
+}

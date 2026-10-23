@@ -1,0 +1,7 @@
+{
+  "kind": "wheel",
+  "smoke": "import soxr, numpy as np; y=soxr.resample(np.zeros(1600,dtype=np.float32),16000,8000); assert len(y)==800",
+  "env": {
+    "CMAKE_ARGS": "-DBUILD_TESTING=OFF"
+  }
+}

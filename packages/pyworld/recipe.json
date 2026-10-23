@@ -1,0 +1,11 @@
+{
+  "name": "pyworld",
+  "version": "0.3.4",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/1f/a0/94bef26b6e270cf8a0c795c906fcb6dddf6095b48f390b4729185d7c1eeb/pyworld-0.3.4.tar.gz",
+    "sha256": "106c70ee7a7d8c9ba488d8022f2033706929a40f0264256b8e87da5aab98303a"
+  },
+  "license": "MIT",
+  "tests": "native-operation"
+}

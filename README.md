@@ -21,6 +21,12 @@ GPU kernels are **not tested on hosted CPU runners**. Every release records
 
 ## Layout
 
+The [Windows ARM64 CPU supplement](docs/windows-arm64.md) adds native and
+source-only missing-wheel recipes from SSUI's dependency audit. Successful
+releases, experimental builds, runtime limitations and blocked targets are
+distinguished explicitly. Use `yarn plan --target windows-arm64-cp312-cpu --repo
+sunxfancy/ssui-python-packages` to select that architecture without rebuilding x64.
+
 * `packages/<name>/recipe.json`: upstream version, downstream revision, pinned source.
 * `packages/<name>/targets/*.json`: independent OS, architecture, compute backend,
   Python ABI, toolkit, PyTorch ABI, GPU architecture and runner selections.
@@ -74,6 +80,12 @@ can change MSVC/Xcode. The actual image and installed dependency versions are
 recorded in release provenance. Deliberately updating that compiler/toolchain
 requires a toolchain revision. An implicit cross-package build DAG is not guessed;
 recipes declaring build_dependencies are rejected until explicit DAG support is added.
+
+Official PyPI source archives can alternatively be pinned by URL and SHA256;
+the hash is checked before safe extraction. Pure Python source-only releases
+require an explicit `pure_python` recipe and receive different verification from
+native wheels. Disabled targets need a concrete blocker and never build/publish,
+including under `--force`; the plan records them in `blocked`.
 
 ## Independent releases
 

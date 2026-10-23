@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "import moderngl; import _moderngl; assert callable(moderngl.create_context)"
+}

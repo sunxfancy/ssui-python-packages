@@ -1,0 +1,4 @@
+{
+  "kind": "wheel",
+  "smoke": "from antlr4 import InputStream; s=InputStream('SSUI'); assert s.size==4"
+}
