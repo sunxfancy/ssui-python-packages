@@ -10,6 +10,8 @@ Recipe presence is not proof of a successful port: only independently verified
 releases appear in the [live catalog](https://sunxfancy.github.io/ssui-python-packages/catalog.json).
 The [five-package build follow-up](arm64-build-results-2026-10-23.md) records
 published versions, native build fixes and independent runtime checks.
+The [compatibility follow-up](arm64-compatibility-2026-10-24.md) records native
+FFmpeg, single-provider MediaPipe, current token streaming and ControlNet fixes.
 
 | Package | Version | Validation / limitation |
 | --- | --- | --- |
@@ -27,9 +29,11 @@ published versions, native build fixes and independent runtime checks.
 | pyarrow | 20.0.0 | Builds bundled Arrow C++; Snappy Parquet round trip and seeded random compute kernel; S3/GCS/Flight disabled |
 | vtk | 9.4.2 | Native vtkPoints, PyVista geometry generation and PyMeshFix repair; no Qt, MFC or external optional modules |
 | antlr4-python3-runtime | 4.9.3 | Pure Python wheel and InputStream operation; supplies hydra-core's source-only dependency |
-| openai-whisper | 20240930 | Pure Python wheel and bytecode validation only; runtime still needs ARM64 numba/llvmlite |
-| transformers-stream-generator | 0.0.4 | Pure Python wheel and bytecode validation only; Transformers integration still needs testing |
-| imageio-ffmpeg | 0.6.0 | **Blocked/disabled**: native ARM64 FFmpeg executable/build pipeline missing; publishing the pure wrapper would not resolve this |
+| openai-whisper | 20240930 | Wrapper wheel has bytecode checks; SSUI validates audio features and file decoding with newer official Numba/llvmlite and packaged FFmpeg |
+| transformers-stream-generator | 0.0.4 | Revision 2 uses public Transformers generation APIs; real CPU tiny-model streaming, sampling and cancellation tests |
+| imageio-ffmpeg | 0.6.0 | Native FFmpeg 9.0.2/x264 build, ARM64 PE checks, H.264 round trip and PCM decode; matching GPL sources/licenses are release assets |
+| mediapipe | 1.1.1 | Hash-pinned official ARM64 DLLs unchanged; single headless cv2 dependency and positive CPU face/pose Tasks inference |
+| controlnet-aux | 0.0.10 | Tasks-compatible face adapter; Canny and positive CPU face annotation; retains legacy Solutions path |
 | numba | 0.62.1 | **Blocked/disabled**: requires a validated Windows ARM64 llvmlite/LLVM JIT port |
 | llvmlite | 0.45.1 | **Blocked/disabled**: native LLVM JIT build and execution tests are not configured for this target |
 
@@ -39,15 +43,15 @@ it does not make simultaneous installation safe.
 
 Already available official ARM64 wheels (torch, torchvision, upgraded tokenizers
 and sentencepiece, etc.) continue to come from their official sources. Pure
-consumer packages such as librosa, WeTextProcessing, hydra-core, pyvista, rembg,
-controlnet-aux and mediapipe do not need redundant rebuilds merely because a
-native dependency is missing. Their complete workflows still need integration
-tests once those dependencies are available.
+consumer packages such as librosa, WeTextProcessing, hydra-core, pyvista and rembg
+do not need redundant rebuilds merely because a native dependency is missing.
+MediaPipe is repackaged to correct a dependency conflict; controlnet-aux is patched
+for an actual removed API. Their wider model workflows still need regression tests.
 
-Numba/llvmlite are additional runtime blockers for both Whisper and librosa;
-this migration does not claim to port the LLVM JIT to Windows ARM64. FFmpeg remains
-an explicit blocked target; `--force` does not turn a blocked recipe into a valid
-build. Source archives are official PyPI sdists pinned by SHA256; Git sources stay
+The older Numba/llvmlite recipes remain disabled; SSUI instead uses newer official
+0.68.0/0.50.0 ARM64 wheels and validates native JIT execution. `--force` does not
+turn a blocked recipe into a valid build. Source archives are official PyPI sdists
+pinned by SHA256; Git sources stay
 pinned by full commit. Native extension and bytecode-only checks are distinguished
 in `release.json`, including package-specific limitations.
 
