@@ -1,0 +1,6 @@
+{
+  "name": "controlnet-aux", "version": "0.0.10", "revision": 1,
+  "source": {"url": "https://files.pythonhosted.org/packages/14/ad/2eb8cd9a8e17e35b9e5d39ad29afdde8fe810bda85e6e59117050519955d/controlnet_aux-0.0.10.tar.gz", "sha256": "31dc265a54448bdcee033a130b47423c80587fa35ccac752113af1b4d48f5183"},
+  "license": "Apache-2.0", "pure_python": true, "tests": "cpu-preprocessor-and-face-inference",
+  "limitations": ["Updates the face adapter for MediaPipe Tasks while retaining the legacy Solutions path. Canny and CPU face inference are tested; model-based preprocessors other than MediaPipe face are not comprehensively tested."]
+}
