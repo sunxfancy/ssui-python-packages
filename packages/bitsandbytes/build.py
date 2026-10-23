@@ -8,6 +8,14 @@ from runtime import build_env, context, run
 ctx = context()
 source, python = Path(ctx['source']), ctx['python']
 env = build_env(ctx)
+devel = Path(ctx['venv']) / 'Lib/site-packages/_rocm_sdk_devel'
+hip_config = devel / 'lib/cmake/hip-lang/hip-lang-config.cmake'
+if not hip_config.is_file():
+    raise RuntimeError('Missing HIP runtime CMake package: ' + str(hip_config)
+                       + '; candidates: ' + str(list(devel.rglob('*hip*config.cmake'))))
+toolchain = Path(ctx['raw']).parent / 'hip-toolchain.cmake'
+toolchain.write_text('set(CMAKE_HIP_COMPILER_ROCM_ROOT "' + devel.as_posix() + '" CACHE PATH "ROCm SDK development root" FORCE)\n', encoding='utf-8')
+env['CMAKE_TOOLCHAIN_FILE'] = str(toolchain)
 wheelhouse = Path(ctx['raw']).parent / 'official-wheel'
 run([python, '-m', 'pip', 'download', 'bitsandbytes==' + ctx['recipe']['version'], '--no-deps', '--only-binary=:all:', '-d', wheelhouse], env=env)
 official = next(wheelhouse.glob('bitsandbytes-*.whl'))
