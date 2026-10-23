@@ -12,6 +12,19 @@ compiler = shutil.which('cl.exe', path=env['PATH'])
 if not compiler:
     raise RuntimeError('ARM64 MSVC developer environment is not active')
 env['PATH'] = str(Path(compiler).parent) + os.pathsep + env['PATH']
+# DIY's bundled fmt predates removal of checked_array_iterator in MSVC 19.50+.
+# Its existing portable pointer fallback is also the upstream fmt solution.
+fmt_header = source / 'ThirdParty/diy2/vtkdiy2/include/vtkdiy2/fmt/format.h'
+fmt_text = fmt_header.read_text()
+guard = '#ifdef _SECURE_SCL'
+if fmt_text.count(guard) != 1:
+    raise RuntimeError('Unexpected VTK DIY/fmt checked iterator guard')
+fmt_header.write_text(fmt_text.replace(guard, '#if defined(_SECURE_SCL) && defined(_MSC_VER) && _MSC_VER < 1950'), newline='\n')
+# Catch this STL/compiler compatibility issue before the full VTK build.
+probe = source.parent / 'vtk-fmt-probe.cxx'
+probe.write_text(f'#include "{fmt_header.as_posix()}"\nint main() {{ return 0; }}\n', newline='\n')
+run([compiler, '/nologo', '/EHsc', '/std:c++14', '/c', probe,
+     '/Fo' + str(source.parent / 'vtk-fmt-probe.obj')], env=env)
 env['PYTHON_PREFIX'] = ctx['venv']
 env['CMAKE_CONFIGURATION'] = 'windows312_arm64'
 build_dir = source.parent / 'vtk-build'
