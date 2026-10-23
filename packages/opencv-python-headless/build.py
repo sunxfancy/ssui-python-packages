@@ -22,7 +22,13 @@ text = setup.read_text()
 flag = '"-DCMAKE_GENERATOR_PLATFORM=ARM64",'
 if text.count(flag) != 1:
     raise RuntimeError('Unexpected OpenCV ARM64 generator configuration')
-setup.write_text(text.replace(flag, '"-DCMAKE_SYSTEM_PROCESSOR=ARM64",'), newline='\n')
+text = text.replace(flag, '"-DCMAKE_SYSTEM_PROCESSOR=ARM64",')
+# The upstream Windows packager unconditionally expects its x64 FFmpeg DLL.
+# This CPU target explicitly builds without FFmpeg, so do not request that DLL.
+ffmpeg_files = r'[r"bin/opencv_videoio_ffmpeg\d{4}%s\.dll" % ("_64" if is64 else "")]'
+if text.count(ffmpeg_files) != 1:
+    raise RuntimeError('Unexpected OpenCV FFmpeg packaging declaration')
+setup.write_text(text.replace(ffmpeg_files, '[]'), newline='\n')
 bootstrap = """
 import os, runpy, sys
 from skbuild import cmaker, platform_specifics
