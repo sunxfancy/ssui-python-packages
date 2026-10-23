@@ -1,4 +1,4 @@
 {
   "kind": "arrow",
-  "smoke": "import pyarrow as pa, pyarrow.parquet as pq, tempfile; a=pa.table({'value':[1,2,3]}); b=pa.BufferOutputStream(); pq.write_table(a,b); assert pq.read_table(pa.BufferReader(b.getvalue())).equals(a)"
+  "smoke": "import pyarrow as pa, pyarrow.parquet as pq, pyarrow.compute as pc; a=pa.table({'value':[1,2,3]}); b=pa.BufferOutputStream(); pq.write_table(a,b); assert pq.read_table(pa.BufferReader(b.getvalue())).equals(a); r=pc.random(8,initializer=42).to_pylist(); assert len(r)==8 and all(0<=x<1 for x in r)"
 }
