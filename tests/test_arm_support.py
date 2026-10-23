@@ -54,10 +54,10 @@ class ArmSupportTests(unittest.TestCase):
         self.assertGreater(plan['count'], 10)
         self.assertTrue(all(x['runner'] == 'windows-11-arm' for x in plan['matrix']['include']))
 
-    def test_blocked_ffmpeg_never_runs_even_with_force(self):
-        plan = make_plan(package='imageio-ffmpeg', force=True)
+    def test_blocked_llvm_never_runs_even_with_force(self):
+        plan = make_plan(package='llvmlite', force=True)
         self.assertEqual(plan['count'], 0)
-        self.assertIn('FFmpeg', plan['blocked'][0]['reason'])
+        self.assertIn('LLVM', plan['blocked'][0]['reason'])
 
     def test_real_arm_pe_machine_accepted(self):
         item = self.item()
