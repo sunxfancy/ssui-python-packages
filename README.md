@@ -99,6 +99,19 @@ orchestration code is MIT licensed.
 
 ## Package indexes
 
+The published [channel selector](https://sunxfancy.github.io/ssui-python-packages/)
+and [machine-readable catalog](https://sunxfancy.github.io/ssui-python-packages/catalog.json)
+list available builds. Wheels and provenance are also available in
+[GitHub Releases](https://github.com/sunxfancy/ssui-python-packages/releases).
+For example, after installing the matching AMD ROCm/PyTorch runtime on Windows x64:
+
+```sh
+python -m pip install --no-deps --index-url https://sunxfancy.github.io/ssui-python-packages/simple/windows/x64/rocm/7.2.1/2.9.1/gfx1201/ bitsandbytes
+```
+
+`--no-deps` here assumes runtime dependencies are already installed from the
+appropriate upstream sources; this wheel index is a supplement, not a PyPI mirror.
+
 GPU compatibility is not represented by ordinary wheel platform tags. Separate
 channels must isolate OS/arch/backend/toolkit/PyTorch/gfx combinations. Never put
 all GPU variants into one undifferentiated extra-index and expect pip to choose
