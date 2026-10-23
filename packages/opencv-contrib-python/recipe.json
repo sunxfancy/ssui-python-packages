@@ -9,6 +9,7 @@
   "license": "Apache-2.0",
   "tests": "native-operation",
   "limitations": [
-    "Windows Media Foundation and bundled FFmpeg disabled for this ARM64 build."
+    "Windows Media Foundation and bundled FFmpeg disabled for this ARM64 build.",
+    "NEON FP32 baseline; optional NEON_FP16 and additional CPU dispatch kernels disabled for MSVC ARM64."
   ]
 }
