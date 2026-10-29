@@ -1,0 +1,11 @@
+{
+  "os": "macos",
+  "arch": "arm64",
+  "backend": "mps",
+  "revision": 1,
+  "inputs": [
+    "toolchains/macos-arm64-mps-torch241.lock"
+  ],
+  "requirements": "toolchains/macos-arm64-mps-torch241.lock",
+  "bootstrap": []
+}

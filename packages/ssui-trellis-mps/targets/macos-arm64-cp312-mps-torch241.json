@@ -1,0 +1,9 @@
+{
+  "os": "macos",
+  "arch": "arm64",
+  "backend": "mps",
+  "python": "3.12",
+  "torch": "2.4.1",
+  "runner": "macos-15",
+  "toolchain": "macos-arm64-mps-torch241"
+}

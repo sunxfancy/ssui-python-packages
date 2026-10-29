@@ -1,0 +1,18 @@
+# Isolated macOS build inputs; no changes to other target toolchains.
+pip==25.1.1
+setuptools==75.8.0
+wheel==0.45.1
+build==1.2.2.post1
+packaging==24.2
+pyproject-hooks==1.3.3
+ninja==1.11.1.3
+numpy==1.26.4
+torch==2.4.1
+filelock==3.18.0
+typing-extensions==4.13.2
+sympy==1.13.3
+mpmath==1.3.0
+networkx==3.4.2
+jinja2==3.1.6
+markupsafe==3.0.4
+fsspec==2025.3.2
