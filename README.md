@@ -142,3 +142,10 @@ published build intentionally. Add a target JSON to expand its matrix. Shared
 toolchain changes affect only targets referencing it. To update build dependencies,
 edit `toolchains/common.in`, run `yarn lock:toolchains` with uv available, review
 the resulting fully pinned lock, then run tests and plan before pushing.
+
+## macOS migration
+
+The [macOS supplement](docs/macos.md) owns Pynini and the extracted
+`ssui-trellis-mps` Metal bridge / integer topology package. Its ARM64 MPS target
+is isolated to CPython 3.12 and PyTorch 2.4.1; hosted checks do not validate GPU
+execution. Model-node device integration remains in SSUI.

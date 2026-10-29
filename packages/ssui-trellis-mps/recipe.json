@@ -1,0 +1,15 @@
+{
+  "name": "ssui-trellis-mps",
+  "version": "0.1.0",
+  "revision": 1,
+  "source": {
+    "repository": "sunxfancy/SSUI",
+    "commit": "0f4ef3dcb4e8979f2cea3423fdaa65cdbf454493"
+  },
+  "license": "MIT",
+  "tests": "native-import-and-cpu-topology",
+  "limitations": [
+    "macOS ARM64, CPython 3.12 and PyTorch 2.4.1 only",
+    "Hosted-runner checks do not validate MPS GPU execution; real TRELLIS model regression remains in SSUI."
+  ]
+}
