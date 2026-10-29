@@ -10,6 +10,7 @@ env = build_env(ctx)
 env['DISTUTILS_USE_SDK'] = env['MSSdk'] = '1'
 env['GPU_ARCHS'] = env['PYTORCH_ROCM_ARCH'] = ctx['target']['gpu_arch']
 env['FORCE_CUDA'] = '1'
+env['FORCE_ONLY_CUDA'] = '1'
 compiler = Path(next(v for k, v in env.items() if k.upper() == 'VCTOOLSINSTALLDIR')) / 'bin/Hostx64/x64'
 if not (compiler / 'link.exe').is_file():
     raise RuntimeError('MSVC linker not found: ' + str(compiler))
