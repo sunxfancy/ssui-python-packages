@@ -1,0 +1,14 @@
+{
+  "name": "o-voxel",
+  "version": "0.0.1",
+  "revision": 1,
+  "source": {
+    "repository": "sunxfancy/o-voxel.rocm72",
+    "commit": "42861b9b5d11ad94c90afd584633be653270a4b7"
+  },
+  "license": "MIT",
+  "tests": "native-import",
+  "limitations": [
+    "Hosted smoke loads the native module directly; integration with FlexGEMM, CuMesh and nvdiffrast and GPU execution are not tested."
+  ]
+}

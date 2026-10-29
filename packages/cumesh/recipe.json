@@ -1,5 +1,11 @@
 {
-  "name": "cumesh", "version": "0.0.1", "revision": 1,
-  "source": {"repository": "sunxfancy/CuMesh.rocm72", "commit": "bb2ed49f4170a267ecb90c41b48daab1ddce7830"},
-  "license": "MIT", "tests": "native-import"
+  "name": "cumesh",
+  "version": "0.0.1",
+  "revision": 2,
+  "source": {
+    "repository": "sunxfancy/CuMesh.rocm72",
+    "commit": "bb2ed49f4170a267ecb90c41b48daab1ddce7830"
+  },
+  "license": "MIT",
+  "tests": "native-import"
 }

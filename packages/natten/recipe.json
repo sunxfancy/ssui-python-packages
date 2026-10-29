@@ -1,0 +1,14 @@
+{
+  "name": "natten",
+  "version": "0.17.4",
+  "revision": 1,
+  "source": {
+    "repository": "SHI-Labs/NATTEN",
+    "commit": "c198e1517d9b8ffc3fc4cc7f14c371df6d30bd64"
+  },
+  "license": "MIT",
+  "tests": "native-import",
+  "limitations": [
+    "Non-CUTLASS naive kernels only; GPU runtime must be validated on gfx1201."
+  ]
+}

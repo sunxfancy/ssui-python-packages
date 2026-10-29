@@ -1,0 +1,14 @@
+{
+  "name": "nvdiffrast",
+  "version": "0.4.0",
+  "revision": 1,
+  "source": {
+    "repository": "NVlabs/nvdiffrast",
+    "commit": "253ac4fcea7de5f396371124af597e6cc957bfae"
+  },
+  "license": "LicenseRef-NVIDIA-Source-Code",
+  "tests": "native-import",
+  "limitations": [
+    "Windows HIP rasterizer with pinned RDNA4 patches; GPU runtime must be validated on gfx1201."
+  ]
+}

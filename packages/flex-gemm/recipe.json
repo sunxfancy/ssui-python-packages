@@ -1,0 +1,14 @@
+{
+  "name": "flex-gemm",
+  "version": "1.0.0",
+  "revision": 1,
+  "source": {
+    "repository": "sunxfancy/FlexGEMM.rocm72",
+    "commit": "148d4c7b186795665a9feb72f0def85c155cb886"
+  },
+  "license": "MIT",
+  "tests": "native-import",
+  "limitations": [
+    "Hosted smoke loads the native kernel module directly; Triton/Python pipeline and GPU execution are not tested."
+  ]
+}

@@ -51,7 +51,19 @@ class PipelineTests(unittest.TestCase):
 
     def test_gpu_toolchain_only_affects_gpu_packages(self):
         plan = make_plan(self.root, changed=['toolchains/windows-x64-rocm721.json'])
-        self.assertEqual({i['package'] for i in plan['matrix']['include']}, {'cumesh', 'bitsandbytes'})
+        expected = {i['package'] for i in load_targets(self.root)
+                    if i['config']['toolchain'] == 'windows-x64-rocm721'}
+        self.assertEqual({i['package'] for i in plan['matrix']['include']}, expected)
+
+    def test_rocm_migration_selects_no_cpu_or_other_package_targets(self):
+        names = {'cumesh', 'flex-gemm', 'o-voxel', 'natten', 'nvdiffrast',
+                 'torch-cluster', 'torch-scatter', 'diso'}
+        for name in names:
+            with self.subTest(package=name):
+                plan = make_plan(self.root, changed=[f'packages/{name}/build.py'])
+                self.assertEqual({i['package'] for i in plan['matrix']['include']}, {name})
+                self.assertEqual({i['target'] for i in plan['matrix']['include']},
+                                 {'windows-x64-cp312-rocm721-gfx1201'})
 
     def test_shared_build_input_affects_every_target(self):
         self.assertEqual(make_plan(self.root, changed=['scripts/build.py'])['count'], make_plan(self.root)['count'])
