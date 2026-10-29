@@ -15,6 +15,9 @@ non-CUTLASS naive kernels only. nvdiffrast records its separate RDNA4 patch sour
 in `packages/nvdiffrast/kernel-source.json`; changing it changes that package's
 fingerprint. diso retains its upstream CC BY-NC 4.0 license.
 
+FlexGEMM and o-voxel smoke checks load their native modules directly. The full
+Python pipelines require Triton or sibling native wheels and are tested separately
+on the target machine, rather than fetched from floating indexes during a build.
 Hosted runners verify native imports or DLL loading, and record GPU runtime as
 untested. Real GPU checks must run separately on a matching machine before SSUI
 adopts newly published wheels. A recipe being present does not mean its wheel has
