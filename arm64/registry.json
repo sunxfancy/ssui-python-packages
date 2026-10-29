@@ -1,0 +1,218 @@
+[
+  {
+    "package": "cumesh",
+    "version": "0.0.1",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "JeffreyXiang/CuMesh",
+      "commit": "12289e1062f0603f2f0d0771b02e1395d247f26f"
+    },
+    "input": {
+      "name": "cumesh-0.0.1-cp313-cp313-win_arm64.whl",
+      "sha256": "1d345d182c9907cce0f59fb27288a8ffc87bd8e7fe9c512bf74fc59559ce5415"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "flex-gemm",
+    "version": "1.0.0",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "JeffreyXiang/FlexGEMM",
+      "commit": "6dd94a859c26ee8246888502eada3dd8ad85532e"
+    },
+    "input": {
+      "name": "flex_gemm-1.0.0-cp313-cp313-win_arm64.whl",
+      "sha256": "576886a7f16c4b03587ac2ffc34139263235c842b234cf28f63b68ab6132bcb6"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "natten",
+    "version": "0.21.0",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "SHI-Labs/NATTEN",
+      "commit": "506816a1b6b6bb9557466f0411dc4f0bc256cb3c"
+    },
+    "input": {
+      "name": "natten-0.21.0-cp313-cp313-win_arm64.whl",
+      "sha256": "3dbeb4d34fe53bb1a39715f86e71600cf9dca7c84b33f69a59f791a212e8c9f2"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "nvdiffrast",
+    "version": "0.4.0",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "NVlabs/nvdiffrast",
+      "commit": "253ac4fcea7de5f396371124af597e6cc957bfae"
+    },
+    "input": {
+      "name": "nvdiffrast-0.4.0-cp313-cp313-win_arm64.whl",
+      "sha256": "ce5abf25d9d7c3ae1e7b0ae3a42091baf2d396cfaf80f3f9a0c38fa52dc3acc3"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "o-voxel",
+    "version": "0.0.1",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "microsoft/TRELLIS.2",
+      "commit": "75fbf0183001ed9876c8dbb35de6b68552ee08bd",
+      "subdirectory": "o-voxel"
+    },
+    "input": {
+      "name": "o_voxel-0.0.1-cp313-cp313-win_arm64.whl",
+      "sha256": "7ad59105fb2a5cad1eb7cd2e58d902850e7dc25f0cf1077c710814f3548d66b8"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "opencv-python-headless",
+    "version": "4.11.0.86",
+    "python": "3.13",
+    "backend": "cpu",
+    "source": {
+      "url": "https://files.pythonhosted.org/packages/36/2f/5b2b3ba52c864848885ba988f24b7f105052f68da9ab0e693cc7c25b0b30/opencv-python-headless-4.11.0.86.tar.gz",
+      "sha256": "996eb282ca4b43ec6a3972414de0e2331f5d9cda2b41091a49739c19fb843798"
+    },
+    "input": {
+      "name": "opencv_python_headless-4.11.0.86-cp313-cp313-win_arm64.whl",
+      "sha256": "df04b916f8007244b8c5737a1408adad6859f00f36b1d680eaaaae6366343924"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "cumm",
+    "version": "0.7.11",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "FindDefinition/cumm",
+      "commit": "b8d83b6511b70746d04485d0d2ec00896b735430"
+    },
+    "input": {
+      "name": "cumm-0.7.11-cp313-cp313-win_arm64.whl",
+      "sha256": "f8b77a9964bc521b6d65871b96a572eb7f7bd584f8fd46fe843a839d7f367089"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "flash-attn",
+    "version": "2.8.3",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "Dao-AILab/flash-attention",
+      "commit": "060c9188beec3a8b62b33a3bfa6d5d2d44975fab"
+    },
+    "input": {
+      "name": "flash_attn-2.8.3-cp313-cp313-win_arm64.whl",
+      "sha256": "bad3639a4508edb7ab273f2eaef29ba26e1d3012093a4366832d6dbb421adcff"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "pytorch3d",
+    "version": "0.7.9",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "facebookresearch/pytorch3d",
+      "commit": "33824be3cbc87a7dd1db0f6a9a9de9ac81b2d0ba"
+    },
+    "input": {
+      "name": "pytorch3d-0.7.9-cp313-cp313-win_arm64.whl",
+      "sha256": "c6ef62eeac92bffd4f5048e0a8e88c6c4480e0837ef76b9c6a6cbcf7293b0c68"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "spconv",
+    "version": "2.3.8",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "repository": "traveller59/spconv",
+      "commit": "263d6b47425ef843c82f997b12d8b714013d216c"
+    },
+    "input": {
+      "name": "spconv-2.3.8-cp313-cp313-win_arm64.whl",
+      "sha256": "5fd0399696e1870089e4632a5dd1345de5706bacba21b55914f645b2679b3fba"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "torch-cluster",
+    "version": "1.6.3",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "url": "https://files.pythonhosted.org/packages/54/31/e7f7a28253cd907404eb652607613b35779140b326d15d0636511b7b9438/torch_cluster-1.6.3.tar.gz",
+      "sha256": "78d5a930a5bbd0d8788df8c6d66addd68d6dd292fe3edb401e3dacba26308152"
+    },
+    "input": {
+      "name": "torch_cluster-1.6.3-cp313-cp313-win_arm64.whl",
+      "sha256": "214c083bb05281cb264773f8075a58d7aa929a8c09093b1f377630e313d1c69e"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "torch-scatter",
+    "version": "2.1.2",
+    "python": "3.13",
+    "backend": "cuda",
+    "source": {
+      "url": "https://files.pythonhosted.org/packages/f5/ab/2a44ecac0f891dd0d765fc59ac8d277c6283a31907626560e72685df2ed6/torch_scatter-2.1.2.tar.gz",
+      "sha256": "69b3aa435f2424ac6a1bfb6ff702da6eb73b33ca0db38fb26989c74159258e47"
+    },
+    "input": {
+      "name": "torch_scatter-2.1.2-cp313-cp313-win_arm64.whl",
+      "sha256": "6074c431d7119f7b5cf6268900e2d735b0e16e510f0527fd866eb4cf6add8489"
+    },
+    "pure_python": false
+  },
+  {
+    "package": "wetextprocessing",
+    "version": "1.0.4",
+    "python": "3.12",
+    "backend": "cpu",
+    "source": {
+      "url": "https://github.com/sunxfancy/pynini-2.1.6.post1/releases/download/2.1.6.post1/WeTextProcessing-1.0.4-py3-none-any.whl",
+      "sha256": "8e95ba3c410488fba001918afe89dfecf7138a27f5e92eccf760925b3574f397"
+    },
+    "input": {
+      "name": "WeTextProcessing-1.0.4-py3-none-any.whl",
+      "sha256": "8e95ba3c410488fba001918afe89dfecf7138a27f5e92eccf760925b3574f397"
+    },
+    "pure_python": true
+  },
+  {
+    "package": "freetype-py",
+    "version": "2.5.1",
+    "python": "3.13",
+    "backend": "cpu",
+    "source": {
+      "url": "https://files.pythonhosted.org/packages/d0/9c/61ba17f846b922c2d6d101cc886b0e8fb597c109cedfcb39b8c5d2304b54/freetype-py-2.5.1.zip",
+      "sha256": "cfe2686a174d0dd3d71a9d8ee9bf6a2c23f5872385cf8ce9f24af83d076e2fbd",
+      "freetype": {
+        "repository": "freetype/freetype",
+        "commit": "42608f77f20749dd6ddc9e0536788eaad70ea4b5",
+        "dll_sha256": "6dd5411fb824c54345432fa6958d2f44eccc6d625d0d6c4ee35ccf236f0ee2a5"
+      }
+    },
+    "input": {
+      "name": "freetype_py-2.5.1-py3-none-win_arm64.whl",
+      "sha256": "2bdd233c56ef4659fc114c8d5d90eb4c4fffdacdf5d94f25e69755b535b12992"
+    },
+    "pure_python": false
+  }
+]

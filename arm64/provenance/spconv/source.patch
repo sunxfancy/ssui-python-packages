@@ -1,0 +1,25 @@
+diff --git a/setup.py b/setup.py
+index b2c1100..a60c3eb 100644
+--- a/setup.py
++++ b/setup.py
+@@ -66,7 +66,7 @@ EXTRAS = {
+ # If you do change the License, remember to change the Trove Classifier for that!
+ 
+ here = os.path.abspath(os.path.dirname(__file__))
+-sys.path.append(str(Path(__file__).parent))
++sys.path.insert(0, str(Path(__file__).parent))
+ 
+ # Import the README and use it as the long-description.
+ # Note: this will only work if 'README.md' is present in your MANIFEST.in file!
+diff --git a/spconv/csrc/sparse/all.py b/spconv/csrc/sparse/all.py
+index 5199740..ea73fd7 100644
+--- a/spconv/csrc/sparse/all.py
++++ b/spconv/csrc/sparse/all.py
+@@ -35,6 +35,7 @@ class CustomThrustLib(pccm.Class):
+     def __init__(self):
+         super().__init__()
+         self.add_dependency(ThrustLib)
++        self.add_include("thrust/tuple.h")
+         # https://github.com/NVIDIA/thrust/issues/1401#issuecomment-806403746
+         if compat.InLinux:
+             self.build_meta.add_public_cflags("nvcc", "-Xcompiler -fno-gnu-unique", "-Xcompiler -fvisibility=hidden")

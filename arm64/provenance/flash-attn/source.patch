@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index a108c41..9a5bb0a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -147,7 +147,7 @@ ext_modules = []
+ # files included in the source distribution, in case the user compiles from source.
+ if os.path.isdir(".git"):
+     if not SKIP_CK_BUILD:
+-        subprocess.run(["git", "submodule", "update", "--init", "csrc/composable_kernel"], check=True)
++        pass  # SSUI: CUDA build does not use composable_kernel
+         subprocess.run(["git", "submodule", "update", "--init", "csrc/cutlass"], check=True)
+ else:
+     if IS_ROCM:

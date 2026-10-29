@@ -21,6 +21,11 @@ GPU kernels are **not tested on hosted CPU runners**. Every release records
 
 ## Layout
 
+The [Windows ARM64 CUDA binary migration](arm64/README.md) supplements the hosted
+recipes with hash-pinned local GPU builds and fresh checks on RTX Spark N1X.
+These releases explicitly record binary-migration provenance and actual GPU
+runtime checks; they do not claim a new hosted source build.
+
 The [Windows ARM64 CPU supplement](docs/windows-arm64.md) adds native and
 source-only missing-wheel recipes from SSUI's dependency audit. Successful
 releases, experimental builds, runtime limitations and blocked targets are

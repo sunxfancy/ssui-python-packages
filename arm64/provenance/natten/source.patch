@@ -1,0 +1,71 @@
+diff --git a/csrc/CMakeLists.txt b/csrc/CMakeLists.txt
+index 2945a65..0b17eab 100644
+--- a/csrc/CMakeLists.txt
++++ b/csrc/CMakeLists.txt
+@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
+ project(natten LANGUAGES CXX CUDA)
+ 
+ find_package(CUDAToolkit 12.0 REQUIRED)
+-set(CXX_STD "17" CACHE STRING "C++ standard")
++set(CXX_STD "20" CACHE STRING "C++ standard")
+ 
+ 
+ if(NOT DEFINED PYTHON_PATH)
+@@ -69,8 +69,8 @@ if(${NATTEN_IS_WINDOWS})
+ endif()
+ 
+ set(CMAKE_C_FLAGS    "${CMAKE_C_FLAGS}")
+-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++17")
+-set(CMAKE_CUDA_FLAGS "-Xcompiler -Wall -ldl")
++set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /std:c++20")
++set(CMAKE_CUDA_FLAGS "-allow-unsupported-compiler")
+ 
+ set(CMAKE_C_FLAGS_DEBUG    "${CMAKE_C_FLAGS_DEBUG}    -Wall -O0")
+ set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG}  -Wall -O0")
+@@ -79,19 +79,19 @@ set(CMAKE_CUDA_FLAGS_DEBUG "-O0 -G -Xcompiler -Wall")
+ set(CMAKE_CXX_STANDARD "${CXX_STD}")
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --expt-relaxed-constexpr")
+-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=-Wconversion")
+-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler=-fno-strict-aliasing")
++set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} ")
++set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} ")
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --use_fast_math")
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --extended-lambda")
+-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -ftemplate-backtrace-limit=0")
++set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} ")
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O3")
+ # Huuuuuge regression from device-side asserts (funny it happened to Ampere FNA and now Blackwell
+ # FNA)
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -DNDEBUG")
+ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --std=c++${CXX_STD}")
+ 
+-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+-set(CMAKE_CUDA_FLAGS_RELEASE "${CMAKE_CUDA_FLAGS_RELEASE} -Xcompiler -O3")
++set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
++set(CMAKE_CUDA_FLAGS_RELEASE "${CMAKE_CUDA_FLAGS_RELEASE} -Xcompiler /O2")
+ set(CMAKE_CUDA_FLAGS_RELEASE "${CMAKE_CUDA_FLAGS_RELEASE} --use_fast_math")
+ 
+ 
+diff --git a/setup.py b/setup.py
+index 5ce5447..5ee1436 100644
+--- a/setup.py
++++ b/setup.py
+@@ -228,9 +228,9 @@ class BuildExtension(build_ext):
+                 assert (
+                     "python.exe" in python_path
+                 ), f"Expected the python executable path to end with python.exe, got {python_path}"
+-                python_lib_dir = python_path.replace("python.exe", "libs").strip()
++                python_lib_dir = str(Path(sys.base_prefix) / "libs")
+                 cmake_args.append(f"-DPY_LIB_DIR={python_lib_dir}")
+-                cmake_args.append("-G Ninja")
++                cmake_args.extend(["-G", "Ninja"])
+                 cmake_args.append("-DCMAKE_BUILD_TYPE=Release")
+ 
+             if not os.path.exists(build_dir):
+diff --git a/third_party/cutlass b/third_party/cutlass
+--- a/third_party/cutlass
++++ b/third_party/cutlass
+@@ -1 +1 @@
+-Subproject commit 8bdbfca68287232e5bf5793145f987569ecd312e
++Subproject commit 8bdbfca68287232e5bf5793145f987569ecd312e-dirty

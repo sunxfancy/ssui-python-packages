@@ -2,6 +2,10 @@
   "name": "ssui-python-packages",
   "private": true,
   "scripts": {
+    "arm64:prepare": "python arm64/migrate.py prepare",
+    "arm64:check": "python arm64/migrate.py check",
+    "arm64:validate": "python arm64/migrate.py validate",
+    "arm64:publish": "python arm64/migrate.py publish",
     "lock:toolchains": "python scripts/lock_toolchain.py",
     "test": "python -m unittest discover -s tests -v",
     "validate": "python scripts/plan.py --validate",
