@@ -4,7 +4,7 @@
   "revision": 1,
   "source": {
     "repository": "rusty1s/pytorch_scatter",
-    "commit": "140d3ad677aae615767412873b90982cbf97d35d"
+    "commit": "f514c10f920b5aeed2eb162092f0ad20d3edee52"
   },
   "license": "MIT",
   "tests": "native-import"
