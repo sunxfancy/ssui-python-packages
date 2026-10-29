@@ -1,0 +1,2 @@
+# Imported build evidence is byte-hashed; preserve its original line endings.
+* -text
