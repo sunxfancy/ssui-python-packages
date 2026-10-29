@@ -1,0 +1,11 @@
+{
+  "name": "torch-cluster",
+  "version": "1.6.3",
+  "revision": 1,
+  "source": {
+    "repository": "rusty1s/pytorch_cluster",
+    "commit": "e9a855c284b45edcbf0282cf70ac09bee0ce4e49"
+  },
+  "license": "MIT",
+  "tests": "native-import"
+}

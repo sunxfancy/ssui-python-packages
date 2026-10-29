@@ -1,0 +1,11 @@
+{
+  "name": "torch-scatter",
+  "version": "2.1.2",
+  "revision": 1,
+  "source": {
+    "repository": "rusty1s/pytorch_scatter",
+    "commit": "140d3ad677aae615767412873b90982cbf97d35d"
+  },
+  "license": "MIT",
+  "tests": "native-import"
+}
