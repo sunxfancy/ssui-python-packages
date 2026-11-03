@@ -1,0 +1,9 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cuda",
+  "revision": 1,
+  "inputs": ["toolchains/windows-arm64-cpu.lock"],
+  "requirements": "toolchains/windows-arm64-cpu.lock",
+  "bootstrap": []
+}
