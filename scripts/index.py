@@ -16,7 +16,7 @@ def write_site(records, output):
     channels = {}
     for manifest, assets in records:
         channel = manifest['channel']
-        if any(not re.fullmatch(r'[a-zA-Z0-9._-]+', part) or part in ('.', '..') for part in channel.split('/')):
+        if any(not re.fullmatch(r'[a-zA-Z0-9._+-]+', part) or part in ('.', '..') for part in channel.split('/')):
             raise ValueError('Unsafe index channel')
         package = re.sub(r'[-_.]+', '-', manifest['package']).lower()
         if not re.fullmatch(r'[a-z0-9][a-z0-9-]*', package):
