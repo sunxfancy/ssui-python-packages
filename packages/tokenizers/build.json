@@ -1,0 +1,5 @@
+{
+  "kind": "wheel",
+  "rust": true,
+  "smoke": "from tokenizers import Tokenizer, models, pre_tokenizers; t=Tokenizer(models.WordLevel({'[UNK]':0,'SSUI':1,'ARM64':2},unk_token='[UNK]')); t.pre_tokenizer=pre_tokenizers.Whitespace(); assert t.encode('SSUI ARM64').ids==[1,2]"
+}

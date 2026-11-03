@@ -5,6 +5,15 @@ backend remain independent configuration fields. Builds use `windows-11-arm`,
 ARM64 MSVC, and a separate pinned build-tool lock. Native PE headers must report
 ARM64 (`0xAA64`) before a wheel can be published; renaming an x64 wheel is rejected.
 
+Additional model-runtime targets are independently pinned: `tokenizers 0.19.1`
+for the isolated Python 3.12 Qwen-7B-Chat environment, `tiktoken 0.14.0` for
+Python 3.13, and `bitsandbytes 0.50.2` for Python 3.13 / CUDA 13.4 / torch
+2.16.0.dev20261026+cu134 / SM 12.1. The bitsandbytes target repackages a
+SHA256-pinned official ARM64 wheel; it does not relabel an x64 build. Hosted
+CPU runners verify the ARM64 CUDA DLL, while local RTX Spark NF4 inference is
+separate runtime evidence. These targets do not change the existing CPU lock or
+ROCm source pins.
+
 This is the missing-wheel inventory from SSUI's 2026-10-23 dependency audit.
 Recipe presence is not proof of a successful port: only independently verified
 releases appear in the [live catalog](https://sunxfancy.github.io/ssui-python-packages/catalog.json).

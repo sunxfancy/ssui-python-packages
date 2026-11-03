@@ -49,6 +49,17 @@ class ArmSupportTests(unittest.TestCase):
         plan = make_plan(changed=['packages/pynini/targets/windows-arm64-cp312-cpu.json'])
         self.assertEqual([(x['package'], x['target']) for x in plan['matrix']['include']], [('pynini', 'windows-arm64-cp312-cpu')])
 
+    def test_arm_version_variants_keep_existing_source_pins(self):
+        targets = {(i['package'], i['target']): i for i in load_targets()}
+        old_bnb = targets['bitsandbytes', 'windows-x64-cp312-rocm721-gfx1201']
+        new_bnb = targets['bitsandbytes', 'windows-arm64-cp313-cuda134-torch216dev20261026-sm121']
+        old_tiktoken = targets['tiktoken', 'windows-arm64-cp312-cpu']
+        new_tiktoken = targets['tiktoken', 'windows-arm64-cp313-cpu']
+        self.assertEqual(old_bnb['recipe']['version'], '0.49.2')
+        self.assertEqual(new_bnb['recipe']['version'], '0.50.2')
+        self.assertEqual(old_tiktoken['recipe']['version'], '0.9.0')
+        self.assertEqual(new_tiktoken['recipe']['version'], '0.14.0')
+
     def test_arm_toolchain_does_not_select_existing_x64_or_macos(self):
         plan = make_plan(changed=['toolchains/windows-arm64-cpu.lock'])
         self.assertGreater(plan['count'], 10)

@@ -1,0 +1,12 @@
+{
+  "name": "tokenizers",
+  "version": "0.19.1",
+  "revision": 1,
+  "source": {
+    "url": "https://files.pythonhosted.org/packages/48/04/2071c150f374aab6d5e92aaec38d0f3c368d227dd9e0469a1f0966ac68d1/tokenizers-0.19.1.tar.gz",
+    "sha256": "ee59e6680ed0fdbe6b724cf38bd70400a0c1dd623b07ac729087270caeac88e3"
+  },
+  "license": "Apache-2.0",
+  "tests": "native-operation",
+  "limitations": ["Built for the legacy Qwen-7B-Chat Transformers 4.44 environment; not a replacement for the main SSUI tokenizers 0.22 runtime."]
+}

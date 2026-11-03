@@ -1,0 +1,15 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cpu",
+  "python": "3.13",
+  "runner": "windows-11-arm",
+  "toolchain": "windows-arm64-cpu",
+  "upstream": {
+    "version": "0.14.0",
+    "source": {
+      "url": "https://files.pythonhosted.org/packages/66/62/167a842aa0429d45f5e797354fd4343a96f6043d67d0513c675c7b8d36e6/tiktoken-0.14.0.tar.gz",
+      "sha256": "231dec90efcdccf1b565a1416107736f1e09b1a08fe736ef9d6363e626d03874"
+    }
+  }
+}

@@ -1,11 +1,21 @@
 import os
+import json
 from pathlib import Path
 import subprocess
 import sys
+import urllib.request
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
+from core import sha256
 from runtime import build_env, context, run
 
 ctx = context()
+if ctx['target']['backend'] == 'cuda':
+    pin = json.loads(Path(__file__).with_name('upstream-cuda134-wheel.json').read_text())
+    wheel = Path(ctx['raw']) / pin['url'].rsplit('/', 1)[-1]
+    urllib.request.urlretrieve(pin['url'], wheel)
+    if sha256(wheel) != pin['sha256']:
+        raise ValueError('Upstream bitsandbytes wheel SHA256 mismatch')
+    sys.exit(0)
 source, python = Path(ctx['source']), ctx['python']
 env = build_env(ctx)
 devel = Path(ctx['venv']) / 'Lib/site-packages/_rocm_sdk_devel'
