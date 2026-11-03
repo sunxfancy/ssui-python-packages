@@ -28,6 +28,7 @@ if ctx['recipe']['version'] == '0.14.0':
             raise RuntimeError('ARM64 MSVC link.exe not found under VCToolsInstallDir')
         env['PATH'] = str(linker.parent) + os.pathsep + env['PATH']
         env['CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_LINKER'] = str(linker)
+        env['CARGO_ENCODED_RUSTFLAGS'] = '-Clinker=' + str(linker)
     run([ctx['python'], '-m', 'pip', 'wheel', ctx['source'], '--no-deps', '--no-build-isolation',
          '--wheel-dir', ctx['raw']], env=env)
 else:
