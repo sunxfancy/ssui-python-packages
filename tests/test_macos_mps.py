@@ -25,7 +25,7 @@ class MacMpsTests(unittest.TestCase):
     def test_metal_source_changes_only_new_package_fingerprint(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / 'repo'
-            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns('.git', '.work', '__pycache__'))
+            shutil.copytree(ROOT, root, ignore=shutil.ignore_patterns('.git', '.work', '.work-*', '__pycache__'))
             items = load_targets(root)
             before = {(i['package'], i['target']): fingerprint(root, i) for i in items}
             source = root / 'packages/ssui-trellis-mps/src/ssui_trellis_mps/neighbors.mm'

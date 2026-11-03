@@ -63,6 +63,21 @@ def load_targets(root=ROOT):
             raise ValueError(f'{package}: no targets')
         for target_path in sorted((recipe_path.parent / 'targets').glob('*.json')):
             target = read_json(target_path)
+            upstream = target.get('upstream')
+            if upstream is not None:
+                if set(upstream) != {'version', 'source'}:
+                    raise ValueError('Target upstream override requires version and source')
+                if not re.fullmatch(r'[0-9][a-zA-Z0-9.]*', upstream['version']):
+                    raise ValueError('Invalid target upstream version')
+                source = upstream['source']
+                if 'url' in source:
+                    if not source['url'].startswith('https://files.pythonhosted.org/packages/') or not re.fullmatch(r'[a-f0-9]{64}', source.get('sha256', '')):
+                        raise ValueError('Target source archive must use a PyPI URL and SHA256')
+                elif not SHA.fullmatch(source.get('commit', '')) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', source.get('repository', '')):
+                    raise ValueError('Invalid target source commit')
+                effective_recipe = {**recipe, **upstream}
+            else:
+                effective_recipe = recipe
             target_id = target_path.stem
             if 'enabled' in target and not isinstance(target['enabled'], bool):
                 raise ValueError('enabled must be boolean')
@@ -91,7 +106,7 @@ def load_targets(root=ROOT):
             for script in ('build.py', 'smoke_test.py'):
                 if not (recipe_path.parent / script).is_file():
                     raise ValueError(f'{package}: missing {script}')
-            targets.append({'package': package, 'target': target_id, 'recipe': recipe,
+            targets.append({'package': package, 'target': target_id, 'recipe': effective_recipe,
                             'config': target, 'toolchain': toolchain})
     if not targets:
         raise ValueError('No package recipes')

@@ -1,0 +1,18 @@
+{
+  "os": "windows",
+  "arch": "arm64",
+  "backend": "cuda",
+  "python": "3.13",
+  "runner": "windows-11-arm",
+  "toolchain": "windows-arm64-cuda134",
+  "sdk": "13.4",
+  "torch": "2.16.0.dev20261026+cu134",
+  "gpu_arch": "sm121",
+  "upstream": {
+    "version": "0.50.2",
+    "source": {
+      "repository": "bitsandbytes-foundation/bitsandbytes",
+      "commit": "08a9956b939857ae2c4fbd56753960cc370fa7cf"
+    }
+  }
+}
