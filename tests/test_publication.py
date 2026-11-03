@@ -82,6 +82,13 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             write_site([(record, [])], self.directory / 'site')
 
+    def test_index_encodes_pytorch_local_version_in_channel_link(self):
+        record = {'package': 'bitsandbytes', 'channel': 'windows/arm64/cuda/13.4/2.16.0.dev20261026+cu134/sm121', 'files': []}
+        output = self.directory / 'site'
+        write_site([(record, [])], output)
+        self.assertTrue((output / 'simple' / record['channel'] / 'bitsandbytes/index.html').is_file())
+        self.assertIn('2.16.0.dev20261026%2Bcu134', (output / 'index.html').read_text())
+
     def test_different_fingerprints_have_distinct_wheel_versions(self):
         item = load_targets()[0]
         self.assertNotEqual(wheel_version(item, 'a' * 64), wheel_version(item, 'b' * 64))
