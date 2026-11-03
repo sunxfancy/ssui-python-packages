@@ -18,7 +18,6 @@ if ctx['recipe']['version'] == '0.14.0':
     run(['rustup', 'toolchain', 'install', toolchain, '--profile', 'minimal', '--no-self-update'])
     env = build_env(ctx)
     env['RUSTUP_TOOLCHAIN'] = toolchain
-    env['CARGO_BUILD_TARGET'] = 'aarch64-pc-windows-msvc'
     env['PYO3_PYTHON'] = ctx['python']
     vc_tools = env.get('VCToolsInstallDir')
     if vc_tools:
