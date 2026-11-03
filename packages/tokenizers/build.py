@@ -10,8 +10,11 @@ run(['rustup', 'toolchain', 'install', toolchain, '--profile', 'minimal', '--no-
 env = build_env(ctx)
 env['RUSTUP_TOOLCHAIN'] = toolchain
 env['PYO3_PYTHON'] = ctx['python']
-vc_tools = env.get('VCToolsInstallDir')
-if vc_tools:
+vc_tools = next((value for key, value in env.items()
+                 if key.upper() == 'VCTOOLSINSTALLDIR'), None)
+if os.name == 'nt':
+    if not vc_tools:
+        raise RuntimeError('ARM64 MSVC developer environment is not active')
     linkers = [Path(vc_tools) / 'bin' / host / 'arm64' / 'link.exe'
                for host in ('Hostarm64', 'Hostx64')]
     linker = next((path for path in linkers if path.is_file()), None)
